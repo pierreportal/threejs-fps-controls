@@ -3,7 +3,8 @@ import { useLoader } from 'react-three-fiber';
 import { RepeatWrapping, TextureLoader } from 'three';
 
 
-export const useTexturizer = (folder: string) => {
+export const useTexturizer = (folder: string | undefined, repeatFactors: number[] = [1, 1]) => {
+
     const [map, displacementMap, normalMap, roughnessMap, aoMap, metalnessMap] = useLoader(TextureLoader, [
         `/assets/textures/${folder}/basecolor.jpg`,
         `/assets/textures/${folder}/height.png`,
@@ -13,26 +14,27 @@ export const useTexturizer = (folder: string) => {
         // `/assets/textures/${folder}/metallic.jpg`,
     ]);
 
-    const R = 5;
+
+
 
     map.wrapS = map.wrapT = RepeatWrapping;
-    map.repeat.set(R, R);
+    map.repeat.set(repeatFactors[0], repeatFactors[1]);
     // colorMap.anisotropy = 16;
     //
     displacementMap.wrapS = displacementMap.wrapT = RepeatWrapping;
-    displacementMap.repeat.set(R, R);
+    displacementMap.repeat.set(repeatFactors[0], repeatFactors[1]);
     // displacementMap.anisotropy = 16;
     //
     normalMap.wrapS = normalMap.wrapT = RepeatWrapping;
-    normalMap.repeat.set(R, R);
+    normalMap.repeat.set(repeatFactors[0], repeatFactors[1]);
     // normalMap.anisotropy = 16;
     //
     roughnessMap.wrapS = roughnessMap.wrapT = RepeatWrapping;
-    roughnessMap.repeat.set(R, R);
+    roughnessMap.repeat.set(repeatFactors[0], repeatFactors[1]);
     // roughnessMap.anisotropy = 16;
     //
     aoMap.wrapS = aoMap.wrapT = RepeatWrapping;
-    aoMap.repeat.set(R, R);
+    aoMap.repeat.set(repeatFactors[0], repeatFactors[1]);
     // aoMap.anisotropy = 16;
 
     // metalnessMap.wrapS = metalnessMap.wrapT = RepeatWrapping;

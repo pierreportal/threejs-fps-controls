@@ -1,19 +1,30 @@
 import React from 'react';
+import { useStore } from './useStore';
 
 export const useLockControls = () => {
-    const [enableControl, setEnableControl] = React.useState<boolean>(false);
+    const { setEnableControls } = useStore();
 
-    const controlOn = () => {
+    const controlOn = (event: any) => {
+        const { clientX, clientY } = event;
+        const { innerWidth, innerHeight } = window;
+        const midScreen = [innerWidth / 2, innerHeight / 2];
+        const diff = [midScreen[0] - clientX, midScreen[1] - clientY];
         document.getElementsByTagName('canvas')[0].requestPointerLock();
-        setEnableControl(true);
+        setEnableControls(diff);
     };
 
-    React.useEffect(() => {
-        document.getElementsByTagName('canvas')[0].addEventListener('click', controlOn);
-        return () => {
-            document.getElementsByTagName('canvas')[0].removeEventListener('click', controlOn);
-        };
-    }, []);
+    const toggleControl = () => {
+        if (!document.pointerLockElement) {
+            setEnableControls(false)
+        }
+    }
 
-    return enableControl;
+    React.useEffect(() => {
+        document.addEventListener('pointerlockchange', toggleControl);
+        return () => {
+            document.removeEventListener('pointerlockchange', toggleControl);
+        };
+    });
+
+    return { controlOn };
 };

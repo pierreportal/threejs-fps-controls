@@ -1,46 +1,96 @@
-import { useBox, usePlane } from '@react-three/cannon';
 import React from 'react';
-import { useLoader } from 'react-three-fiber';
-import { Box3, RepeatWrapping, TextureLoader } from 'three';
+import { useBox } from '@react-three/cannon';
 import { useTexturizer } from '../../../hooks/useTexturizer';
 
+interface SelectableElementProps {
+    onPointerMove?: (event: any) => void;
+    onPointerLeave?: (event?: any) => void;
+    onClick?: (event?: any) => void;
+}
 interface IBoxProps {
+    ref?: any
     floating?: boolean;
     mass?: number;
-    position: any;
+    position: [x: number, y: number, z: number];
     dimensions: any;
+    texture?: string;
+    textureWrapping?: number[];
+    isHovered?: any | null;
+    color?: string
 }
 
-export const Box: React.FunctionComponent<IBoxProps> = ({ floating, mass = 1, position, dimensions }) => {
+const Box_: React.FunctionComponent<IBoxProps & SelectableElementProps> = (
+    {
+        ref: propsRef,
+        floating,
+        mass = 1,
+        position,
+        dimensions,
+        onPointerMove,
+        onClick,
+        isHovered,
+        onPointerLeave,
+        texture,
+        textureWrapping,
+        color
+    }
+) => {
 
-    const texture = useTexturizer('test3')
+    const meterialRef = React.useRef()
 
-    const [ref, api] = useBox(() => (
+    // const loadedTexture = useTexturizer(texture, textureWrapping);
+
+    const tunedPosition: [x: number, y: number, z: number] = [...position];
+    tunedPosition[1] += dimensions[1] / 2;
+
+    const [ref] = useBox(() => (
         {
             type: floating ? "Static" : "Dynamic",
             mass,
-            position: position,//.map((x: number, i: number) => x + dimensions[i] / 2),
+            position: tunedPosition,
             args: dimensions
         }
     ));
 
 
 
+    const meshProps: SelectableElementProps = {}
 
+    meshProps.onPointerMove = (e: any) => {
+        e.stopPropagation();
+        if (onPointerMove) {
+            onPointerMove(ref)
+        }
+    }
+    meshProps.onPointerLeave = (e: any) => {
+        e.stopPropagation();
+        if (onPointerLeave) {
+            onPointerLeave()
+        }
+    }
+    meshProps.onClick = (e: any) => {
+        e.stopPropagation();
+        if (onClick) {
+            onClick()
+        }
+    }
 
-    const box = ref.current && new Box3().setFromObject(ref.current)
-    console.log(box);
-
-
-    return <mesh ref={ref} receiveShadow castShadow >
+    return <mesh
+        ref={ref}
+        receiveShadow
+        castShadow
+        {...meshProps}>
         <boxGeometry
             attach="geometry"
             args={[...dimensions] as any}
         />
         <meshStandardMaterial
-            displacementScale={0.25}
-            {...texture}
+            color={'grey'}
+            displacementScale={0}
+            emissive={isHovered ? 'hsl(180, 70%, 50%)' : 'black'}
+        // {...loadedTexture}
         />
-
     </mesh>
 }
+
+export const Box = React.memo(Box_);

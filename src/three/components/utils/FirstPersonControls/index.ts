@@ -1,4 +1,3 @@
-import { METHODS } from "http";
 import { Quaternion, Vector3 } from "three";
 import { PLAYER_HEIGHT } from '../../../constants';
 
@@ -18,7 +17,7 @@ function clamp(x: any, a: any, b: any) {
 let pX: any = null;
 let pY: any = null;
 
-const SPEED = 0.2;
+const SPEED = 5;
 const HEAD_BANG_LEVEL = 0.2;
 
 class InputController {
@@ -26,12 +25,13 @@ class InputController {
     public current_: IcurrentInputController | undefined;
     public previous_: any;
     public keys_: any;
-    public previousKeys_: any;
+    public previousKeys_: any; //TODO: not used
     public domElement: any;
-    public blockedDirecrtion_: any;
+    public diffCursor: any
 
     constructor() {
         this.initialize_();
+
     }
     initialize_() {
         this.current_ = {
@@ -46,6 +46,7 @@ class InputController {
         this.keys_ = {};
         this.previousKeys_ = {};
         this.domElement = document;
+        this.diffCursor = [0, 0]
 
         this.domElement.addEventListener('mousedown', (event: MouseEvent) => this.onMouseDown_(event));
         this.domElement.addEventListener('mouseup', (event: MouseEvent) => this.onMouseUp_(event));
@@ -81,8 +82,8 @@ class InputController {
         const { movementX, movementY } = event;
 
         if (pX === null && pY === null) {
-            pX = event.pageX;
-            pY = event.pageY;
+            pX = event.pageX + this.diffCursor[0];
+            pY = event.pageY + this.diffCursor[1];
         };
 
         pX += movementX * 0.5;
@@ -107,86 +108,77 @@ class InputController {
     };
     update() {
         this.previous_ = { ...this.current_ };
-        console.log('prev:', this.previous_.mouseX);
-        console.log('curr:', this.current_!.mouseX);
-
     };
 };
-
-
-
 
 
 export class FirstPersonCamera {
     public camera_: any;
     public input_: InputController;
     public rotation_: Quaternion;
-    public translation_: Vector3;
     public phi_: number;
     public theta_: number;
     public headBobActive_: boolean;
     public headBobTimer_: number;
     public position: any;
-    public player_: any;
+    public playerApi_: any;
+    // public diffCursor: any
 
 
-    constructor(camera: any, position: any, playerRef: any) {
-        console.log('init FPC')
+    constructor(camera?: any, playerApi_?: any) {
         this.camera_ = camera;
         this.input_ = new InputController();
         this.rotation_ = new Quaternion();
-        this.translation_ = new Vector3();
         this.phi_ = 0;
         this.theta_ = 0;
         this.headBobActive_ = false;
         this.headBobTimer_ = 0;
-        // this.camera_.aspect = window.innerWidth / window.innerHeight;
-        // this.camera_.updateProjectionMatrix();
-        this.position = position;
-        this.player_ = playerRef;
-    }
+        this.playerApi_ = playerApi_;
 
-    update() {
-        // this.camera_.position.set(this.position[0], PLAYER_HEIGHT, this.position[2]);
+    }
+    update(diff: Array<number> | boolean) {
         if (!document.pointerLockElement) return;
+        this.input_.diffCursor = diff
         this.updateRotation_();
         this.updateCamera_();
-        // this.updateTranslation_();
-        // this.updateHeadBob_();
-        // console.log(this.camera_.rotation)
-        return this.camera_.rotation
+        this.updateVelocity_();
+        this.updateHeadBob_(); // TODO: adapt to monitor FPS
     }
 
-    // updateTranslation_() {
+    updateVelocity_() {
+        const { s, w, a, d } = this.input_.keys_;
+        const direction = new Vector3();
+        const frontVector = new Vector3(0, 0, (s ? 1 : 0) - (w ? 1 : 0));
+        const sideVector = new Vector3((a ? 1 : 0) - (d ? 1 : 0), 0, 0);
+        this.headBobActive_ = s || w || a || d;
 
-    //     let [Pforward, Pleft, PforwardVelocity, PstrafeVelocity] = getVelocityVector(this.input_.keys_, 1, this.phi_);
+        direction
+            .subVectors(frontVector, sideVector)
+            .normalize()
+            .multiplyScalar(SPEED)
+            .applyEuler(this.camera_.rotation);
 
-    //     this.translation_.add(Pforward as any);
-    //     this.translation_.add(Pleft as any);
+        this.playerApi_.velocity.set(direction.x, 0, direction.z);
+    }
+    updateHeadBob_() {
+        if (this.headBobActive_) {
+            const wavelength = Math.PI;
+            const nextStep = 1 + Math.floor(((this.headBobTimer_ + 0.00001) * 10) / wavelength);
+            const nextStepTime = nextStep * wavelength / 10;
+            this.headBobTimer_ = Math.min(this.headBobTimer_ + 0.03, nextStepTime);
 
-    //     if (PforwardVelocity !== 0 || PstrafeVelocity !== 0) {
-    //         this.headBobActive_ = true;
-    //     }
-    // }
-    // updateHeadBob_() {
-    //     if (this.headBobActive_) {
-    //         const wavelength = Math.PI;
-    //         const nextStep = 1 + Math.floor(((this.headBobTimer_ + 0.000001) * 10) / wavelength);
-    //         const nextStepTime = nextStep * wavelength / 10;
-    //         this.headBobTimer_ = Math.min(this.headBobTimer_ + 0.03, nextStepTime);
-
-    //         if (this.headBobTimer_ === nextStepTime) {
-    //             this.headBobActive_ = false;
-    //         }
-    //     }
-    // }
+            if (this.headBobTimer_ === nextStepTime) {
+                this.headBobActive_ = false;
+            }
+        }
+    }
     updateRotation_() {
         if (this.input_.previous_?.mouseX !== this.input_.current_?.mouseX) {
             const xh = this.input_.current_!.mouseXDelta / window.innerWidth;
             const yh = this.input_.current_!.mouseYDelta / window.innerHeight;
 
-            this.phi_ += -xh * 1;
-            this.theta_ = clamp(this.theta_ + -yh * 1, -Math.PI / 3, Math.PI / 3);
+            this.phi_ += -xh * 5;
+            this.theta_ = clamp(this.theta_ + -yh * 5, -Math.PI / 3, Math.PI / 3);
 
             const qx = new Quaternion();
             qx.setFromAxisAngle(new Vector3(0, 1, 0), this.phi_);
@@ -203,34 +195,11 @@ export class FirstPersonCamera {
     }
 
     updateCamera_() {
+        this.camera_.position.set(
+            this.camera_.position[0],
+            PLAYER_HEIGHT + HEAD_BANG_LEVEL * Math.sin(this.headBobTimer_ * 10) * 0.5,
+            this.camera_.position[2],
+        )
         this.camera_.quaternion.copy(this.rotation_);
-        // this.camera_.position.set(
-        //     this.translation_.x + this.position[0],
-        //     PLAYER_HEIGHT + HEAD_BANG_LEVEL * Math.sin(this.headBobTimer_ * 10) * 1.2,
-        //     this.translation_.z + this.position[2]
-        // );
-
     }
 };
-
-
-// export const getVelocityVector = (keys: any | null, v: number, phi: number) => {
-
-//     let forwardVelocity = (keys?.w ? v : 0) + (keys?.s ? -v : 0);
-//     let strafeVelocity = (keys?.a ? v : 0) + (keys?.d ? -v : 0);
-
-//     const getForwardV = () => forwardVelocity
-
-//     const qx = new Quaternion();
-//     qx.setFromAxisAngle(new Vector3(0, 1, 0), phi);
-
-//     const forward = new Vector3(0, 0, -1);
-//     forward.applyQuaternion(qx);
-//     forward.multiplyScalar(getForwardV() * SPEED);
-
-//     const left = new Vector3(-1, 0, 0);
-//     left.applyQuaternion(qx);
-//     left.multiplyScalar(strafeVelocity * SPEED);
-
-//     return [forward, left, forwardVelocity, strafeVelocity]
-// }
