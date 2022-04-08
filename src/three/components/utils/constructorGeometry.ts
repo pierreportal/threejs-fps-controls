@@ -62,12 +62,12 @@ class Flat {
         }
 
         this.flatBorderPosition = {
-            left: [this.position.x - this.length / 2 - 0.5, 0, 0],
-            right: [this.position.x + this.length / 2 + 0.5, 0, 0],
-            front: [0, 0, this.position.y - this.width / 2 - 0.5],
-            back: [0, 0, this.position.y + this.width / 2 + 0.5],
-            top: [0, this.height, 0],
-            centerCenter: [this.position.x, 0, this.position.y]
+            left: [this.position.x - this.length / 2 - 0.5, this.position.z, this.position.y],
+            right: [this.position.x + this.length / 2 + 0.5, this.position.z, this.position.y],
+            front: [this.position.x, this.position.z, this.position.y - this.width / 2 - 0.5],
+            back: [this.position.x, this.position.z, this.position.y + this.width / 2 + 0.5],
+            top: [this.position.x, this.position.z + this.height, this.position.y],
+            centerCenter: [this.position.x, this.position.z, this.position.y]
         }
 
         this.flatBorderDimension = {
@@ -109,7 +109,7 @@ class Flat {
             position: this.flatBorderPosition.top,
             dimensions: [this.width, 1, this.length]
         }
-        const sides = { /*front,*/ back, left, right, top } as any
+        const sides = { front, back, left, right, top } as any
         return side ? callback(sides[side]) : Object.values(sides).map((s: any, i: number) => callback(s, i));
     }
 }

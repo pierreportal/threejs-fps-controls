@@ -9,6 +9,7 @@ import { Flat } from './three/components/Flat';
 import { NotificationManager } from './NotificationManager';
 import { useLockControls } from './three/hooks/useLockControls';
 import { useStore } from './three/hooks/useStore';
+import { ShowRoom } from './three/components/ShowRoom';
 
 function App() {
   const { progress } = useProgress()
@@ -31,8 +32,10 @@ function App() {
       <Universe>
         <Suspense fallback={<Html center style={{ color: 'white' }}>{progress.toFixed(0)}%</Html>}>
           <NeonEffect />
-          {/* <Debug color="white"> */}
           <Flat />
+
+          {/* <Debug color="white"> */}
+          <ShowRoom />
           {/* </Debug> */}
         </Suspense>
       </Universe>

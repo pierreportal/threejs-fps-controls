@@ -9,15 +9,15 @@ interface ISolidBodyProps {
 
 export const SolidBody: React.FunctionComponent<ISolidBodyProps> = ({ children, dimensions, position }) => {
 
-    const refPos = [...position];
+    const refPos: any = [...position];
     refPos[1] += dimensions[1] / 2
 
-    const ref = useBox(() => (
+    useBox(() => (
         {
             args: dimensions,
-            position: refPos as any
+            position: refPos
         }
     ));
 
-    return React.cloneElement(children, { ref, position, castShadow: true });
+    return React.cloneElement(children, { position, castShadow: true });
 }

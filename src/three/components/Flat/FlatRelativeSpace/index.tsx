@@ -26,27 +26,80 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
         })
     });
 
-    const walls = F.build(false, (wall: any, i: number) => {
-        return <Box key={i} position={wall.position as any} dimensions={wall.dimensions as any} floating />
-    });
+    const walls = ['back', 'right', 'top'].map((side: string) => {
+        return F.build(side, (wall: any, i: number) => {
+            return <SolidBody key={side} dimensions={wall.dimensions} position={wall.position}>
+                <Box key={i} position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            </SolidBody>
+        });
+    })
+
 
     return <group position={[0, 0, 0]}>
         {F.innerWall({
             position: [0, 0, -1],
             dimensions: [7, 1.5, 1]
-        }, (wall: any) => <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />)}
+        }, (wall: any) =>
+            <SolidBody dimensions={wall.dimensions} position={wall.position}>
+                <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            </SolidBody>)}
+
         {F.innerWall({
             position: [0, 3.5, -1],
             dimensions: [7, 0.5, 1]
-        }, (wall: any) => <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />)}
+        }, (wall: any) =>
+            <SolidBody dimensions={wall.dimensions} position={wall.position}>
+                <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            </SolidBody>
+        )}
+
         {F.innerWall({
             position: [7, 0, -1],
             dimensions: [1, 4, 1]
-        }, (wall: any) => <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />)}
+        }, (wall: any) =>
+            <SolidBody dimensions={wall.dimensions} position={wall.position}>
+                <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            </SolidBody>
+        )}
+
         {F.innerWall({
             position: [8, 0, 0],
             dimensions: [0.5, 4, 4]
-        }, (wall: any) => <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />)}d
+        }, (wall: any) =>
+            <SolidBody dimensions={wall.dimensions} position={wall.position}>
+                <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            </SolidBody>
+        )}
+
+
+        {/* LEFT */}
+        {F.innerWall({
+            position: [-1, 0, -1],
+            dimensions: [1, 4, 4]
+        }, (wall: any) =>
+            <SolidBody dimensions={wall.dimensions} position={wall.position}>
+                <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            </SolidBody>
+        )}
+
+        {F.innerWall({
+            position: [-1, 0, 6],
+            dimensions: [1, 4, 6]
+        }, (wall: any) =>
+            <SolidBody dimensions={wall.dimensions} position={wall.position}>
+                <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            </SolidBody>
+        )}
+
+        {F.innerWall({
+            position: [-1, 4, -1],
+            dimensions: [1, 2, 12]
+        }, (wall: any) =>
+            <SolidBody dimensions={wall.dimensions} position={wall.position}>
+                <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            </SolidBody>
+        )}
+
         {walls}
         {c}
     </group>

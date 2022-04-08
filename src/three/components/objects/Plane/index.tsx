@@ -3,16 +3,21 @@ import React from 'react';
 
 interface IOwnProps {
     position: [number, number, number],
-    dimensions: [number, number, number]
+    dimensions: [number, number, number],
+    color?: string
 }
-export const Plane: React.FunctionComponent<IOwnProps> = ({ position }) => {
+export const Plane: React.FunctionComponent<IOwnProps> = ({ position, dimensions, color }) => {
 
-    const [ref] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0] }))
+    const [ref] = usePlane(() => ({
+        rotation: [-Math.PI / 2, 0, 0],
+        position
+    }))
+    const [w, , l] = dimensions.map(x => x + 2);
     return (
         <mesh position={position} receiveShadow castShadow ref={ref}>
-            <planeBufferGeometry attach="geometry" args={[12, 12]} />
+            <planeBufferGeometry attach="geometry" args={[w, l]} />
             <meshPhongMaterial
-                color={'grey'}
+                color={color || 'grey'}
             />
         </mesh>
     )

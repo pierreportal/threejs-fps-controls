@@ -43,14 +43,14 @@ const Box_: React.FunctionComponent<IBoxProps & SelectableElementProps> = (
     const tunedPosition: [x: number, y: number, z: number] = [...position];
     tunedPosition[1] += dimensions[1] / 2;
 
-    const [ref] = useBox(() => (
-        {
-            type: floating ? "Static" : "Dynamic",
-            mass,
-            position: tunedPosition,
-            args: dimensions
-        }
-    ));
+    // const [ref] = useBox(() => (
+    //     {
+    //         type: floating ? "Static" : "Dynamic",
+    //         mass,
+    //         position: tunedPosition,
+    //         args: dimensions
+    //     }
+    // ));
 
 
 
@@ -59,7 +59,7 @@ const Box_: React.FunctionComponent<IBoxProps & SelectableElementProps> = (
     meshProps.onPointerMove = (e: any) => {
         e.stopPropagation();
         if (onPointerMove) {
-            onPointerMove(ref)
+            onPointerMove(e)
         }
     }
     meshProps.onPointerLeave = (e: any) => {
@@ -75,8 +75,8 @@ const Box_: React.FunctionComponent<IBoxProps & SelectableElementProps> = (
         }
     }
 
-    return <mesh
-        ref={ref}
+    return <mesh position={tunedPosition}
+        // ref={ref}
         receiveShadow
         castShadow
         {...meshProps}>
@@ -85,7 +85,7 @@ const Box_: React.FunctionComponent<IBoxProps & SelectableElementProps> = (
             args={[...dimensions] as any}
         />
         <meshStandardMaterial
-            color={'grey'}
+            color={color || 'grey'}
             displacementScale={0}
             emissive={isHovered ? 'hsl(180, 70%, 50%)' : 'black'}
         // {...loadedTexture}

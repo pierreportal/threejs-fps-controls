@@ -1,5 +1,4 @@
 import React from 'react';
-import { Box } from '../objects/Box';
 import { Plane } from '../objects/Plane';
 import { Selectable } from '../objects/Selectable';
 import { Lights } from './Lights';
@@ -23,8 +22,7 @@ export const Flat: React.FunctionComponent = () => {
     const tmpSubtitle = useTemporarySubtitle()
     const deskRef = React.useRef();
 
-    return <>
-
+    return <group position={[0, 0, 0]}>
         <Lights />
         <FlatRelativeSpace>
             <SolidBody dimensions={[2, 1.5, 2]} position={[4, 0, 3]}>
@@ -40,44 +38,12 @@ export const Flat: React.FunctionComponent = () => {
             <Painting dimensions={[.5, .7, .05]} photo={'bjork-photo.png'} position={[11.7, 2, 6]} rotation={[0, Math.PI / 2, 0]} />
             <PlayerVelocity position={[6, 0, 6]} />
             <SciFiDoor onClick={() => tmpSubtitle('This door is locked.', 2000)} scale={1.5} rotation={[0, Math.PI, 0]} position={[6, 0, 12]} />
+            <FridgeClosed position={[0.6, 0, 11.5]} rotation={[0, -Math.PI, 0]} />
+            <Fridge position={[0.6, 0, 10.5]} rotation={[0, -Math.PI, 0]} />
+            <FridgeClosed position={[0.6, 0, 9.5]} rotation={[0, -Math.PI, 0]} />
+            <FridgeClosed position={[0.6, 0, 8.5]} rotation={[0, -Math.PI, 0]} />
             <Plane dimensions={[12, 0, 12]} position={[0, 0, 0]} />
+            <Gibson position={[7.8, 0.7, 3]} scale={0.2} rotation={[1.6, -0.25, 4.7]} />
         </FlatRelativeSpace>
-
-
-        {/* 
-
-        {[
-            [0.6, 0, 11.5],
-            [0.6, 0, 10.5],
-            [0.6, 0, 9.5],
-            [0.6, 0, 8.5]
-        ].map((pos: any, i: number) => {
-            return F.innerWall(
-                {
-                    position: pos,
-                },
-                ({ position }: any) => (
-                    i === 1
-                        ? <Fridge position={position} rotation={[0, -Math.PI, 0]} />
-                        : <FridgeClosed position={position} rotation={[0, -Math.PI, 0]} />
-                )
-            )
-        })}
-
-        {[
-            [0.6, 2, 11.5],
-            [0.6, 2, 10.5],
-            [0.6, 2, 9.5],
-            [0.6, 2, 8.5]
-        ].map((pos: any, i: number) => {
-            return F.innerWall(
-                {
-                    position: pos,
-                },
-                ({ position }: any) => (
-                    <FridgeClosed position={position} rotation={[0, -Math.PI, 0]} />
-                )
-            )
-        })} */}
-    </>
+    </group>
 }
