@@ -10,10 +10,12 @@ export const useLockControls = () => {
         const midScreen = [innerWidth / 2, innerHeight / 2];
         const diff = [midScreen[0] - clientX, midScreen[1] - clientY];
         document.getElementsByTagName('canvas')[0].requestPointerLock();
+
         setEnableControls(diff);
     };
 
     const toggleControl = () => {
+        document.getElementById('nap')?.classList.toggle('faded');
         if (!document.pointerLockElement) {
             setEnableControls(false)
         }

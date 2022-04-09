@@ -5,6 +5,7 @@ import { RepeatWrapping, TextureLoader } from 'three';
 
 export const useTexturizer = (folder: string | undefined, repeatFactors: number[] = [1, 1]) => {
 
+
     const [map, displacementMap, normalMap, roughnessMap, aoMap, metalnessMap] = useLoader(TextureLoader, [
         `/assets/textures/${folder}/basecolor.jpg`,
         `/assets/textures/${folder}/height.png`,

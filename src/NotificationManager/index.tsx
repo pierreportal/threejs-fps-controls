@@ -8,13 +8,14 @@ interface INotificationManagerProps {
 
 export const NotificationManager: React.FunctionComponent<INotificationManagerProps> = ({ children }) => {
 
-    const { notification, subtitle, tooltip, displayTerminalWindow } = useStore();
+    const { notification, subtitle, tooltip, displayTerminalWindow, mainTitle } = useStore();
 
     return <>
         {notification && ""}
         {displayTerminalWindow && <div id="terminal-window"></div>}
         {tooltip && <TextTooltip heading={tooltip.heading} text={tooltip.text} position={tooltip.position} />}
         <div id="subtitle">{subtitle}</div>
+        {mainTitle && <h1 id="main-title">{mainTitle}</h1>}
         {children}
     </>
 };

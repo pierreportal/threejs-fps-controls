@@ -49,6 +49,12 @@ export const useStore = create((set: any) => ({
         return set((state: any) => state.notification = notification);
     },
 
+    mainTitle: null as string | null,
+
+    setMainTitle: (mainTitle: string | null) => {
+        return set((state: any) => state.mainTitle = mainTitle);
+    },
+
     subtitle: null as string | null,
 
     setSubtitle: (subtitle: string | null) => {

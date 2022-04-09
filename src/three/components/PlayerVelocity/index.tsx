@@ -1,6 +1,7 @@
 import { Triplet, useBox } from '@react-three/cannon';
 import React from 'react';
 import { useFrame, useThree } from 'react-three-fiber';
+import { usePlayerRouting } from '../../hooks/usePlayerRouting';
 import { useStore } from '../../hooks/useStore';
 import { FirstPersonCamera } from '../utils/FirstPersonControls';
 
@@ -29,7 +30,11 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
         }
     ));
 
-    api.position.subscribe((p: Triplet) => playerRef.current?.position.set(...p));
+    usePlayerRouting(playerRef.current?.position)
+
+    api.position.subscribe((p: Triplet) => {
+        playerRef.current?.position.set(...p)
+    });
 
     ctr.camera_ = cameraRef.current;
     ctr.playerApi_ = api

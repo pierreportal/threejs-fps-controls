@@ -1,10 +1,8 @@
 import React, { Suspense } from 'react';
 import { Universe } from './three/components/Universe';
 import { Debug } from '@react-three/cannon';
-import { PlayerVelocity } from './three/components/PlayerVelocity';
 import { NeonEffect } from './three/components/objects/Neon';
 import { Html, useProgress } from '@react-three/drei';
-import { Spotlight } from './three/components/objects/Spotlight';
 import { Flat } from './three/components/Flat';
 import { NotificationManager } from './NotificationManager';
 import { useLockControls } from './three/hooks/useLockControls';
@@ -20,12 +18,15 @@ function App() {
   return (
     <NotificationManager>
 
+      <div id="nap"></div>
       {
         progress === 100 &&
         (
           enableControls
             ? pointer
-            : <button id="play-button" onClick={controlOn}>PLAY</button>
+            : <>
+              <button id="play-button" onClick={controlOn}>Come in</button>
+            </>
         )
       }
 
@@ -33,8 +34,7 @@ function App() {
         <Suspense fallback={<Html center style={{ color: 'white' }}>{progress.toFixed(0)}%</Html>}>
           <NeonEffect />
           <Flat />
-
-          {/* <Debug color="white"> */}
+          {/* <Debug color="red"> */}
           <ShowRoom />
           {/* </Debug> */}
         </Suspense>

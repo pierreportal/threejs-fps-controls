@@ -55,7 +55,7 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
 
         {F.innerWall({
             position: [7, 0, -1],
-            dimensions: [1, 4, 1]
+            dimensions: [5, 4, 1]
         }, (wall: any) =>
             <SolidBody dimensions={wall.dimensions} position={wall.position}>
                 <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
@@ -74,8 +74,8 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
 
         {/* LEFT */}
         {F.innerWall({
-            position: [-1, 0, -1],
-            dimensions: [1, 4, 4]
+            position: [-1, 0, -5],
+            dimensions: [1, 7, 8]
         }, (wall: any) =>
             <SolidBody dimensions={wall.dimensions} position={wall.position}>
                 <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />

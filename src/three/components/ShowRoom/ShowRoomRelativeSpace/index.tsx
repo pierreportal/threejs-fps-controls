@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '../../objects/Box';
+import { Plane } from '../../objects/Plane';
 import FlatClass from '../../utils/constructorGeometry';
 import { SolidBody } from '../../utils/SolidBody';
 
@@ -8,13 +9,22 @@ interface IShowRoomRelativeSpace {
     // position: [number, number, number]
 }
 
-const SHOW_ROOM_HEIGHT = 6;
+const SHOW_ROOM_HEIGHT = 10;
+const SHOW_ROOM_WIDTH = 17;
+const SHOW_ROOM_LENGTH = 17;
+
+const SHOW_ROOM_POSITION = {
+    x: -(SHOW_ROOM_WIDTH - 1.4),
+    y: 1.5,
+    z: -0.5
+}
+const SHOW_ROOM_POSITION_ARRAY = [SHOW_ROOM_POSITION.x, SHOW_ROOM_POSITION.z, SHOW_ROOM_POSITION.y] as any
 
 const S = new FlatClass(
-    [-11.5, -0.5, 1.5],
-    [9, 9],
+    SHOW_ROOM_POSITION_ARRAY,
+    [SHOW_ROOM_WIDTH, SHOW_ROOM_LENGTH],
     SHOW_ROOM_HEIGHT
-)
+);
 
 export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpace> = ({ children }) => {
 
@@ -28,8 +38,8 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
     });
 
     const stepEntrance = S.innerWall({
-        position: [9, 0, 0],
-        dimensions: [1, 0.5, 10]
+        position: [SHOW_ROOM_WIDTH, 0, 0],
+        dimensions: [1, 0.5, SHOW_ROOM_WIDTH + 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
             <Box position={wall.position} dimensions={wall.dimensions} floating />
@@ -38,7 +48,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
 
     const frontWall = S.innerWall({
         position: [-1, 0, -1],
-        dimensions: [10, SHOW_ROOM_HEIGHT, 1]
+        dimensions: [SHOW_ROOM_WIDTH + 1, SHOW_ROOM_HEIGHT, 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
             <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
@@ -47,7 +57,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
 
     const leftWall = S.innerWall({
         position: [-1, 0, -1],
-        dimensions: [1, SHOW_ROOM_HEIGHT, 11]
+        dimensions: [1, SHOW_ROOM_HEIGHT, SHOW_ROOM_WIDTH + 2]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
             <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
@@ -55,8 +65,8 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
     })
 
     const backWall = S.innerWall({
-        position: [-1, 0, 9],
-        dimensions: [10, SHOW_ROOM_HEIGHT, 1]
+        position: [-1, 0, SHOW_ROOM_WIDTH],
+        dimensions: [SHOW_ROOM_WIDTH + 1, SHOW_ROOM_HEIGHT, 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
             <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
@@ -65,7 +75,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
 
     const topWall = S.innerWall({
         position: [-1, SHOW_ROOM_HEIGHT, -1],
-        dimensions: [10, 1, 10]
+        dimensions: [SHOW_ROOM_WIDTH + 1, 1, SHOW_ROOM_WIDTH + 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
             <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
@@ -73,32 +83,46 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
     })
 
     const rightColorWallFront = S.innerWall({
-        position: [9, 0, -1],
-        dimensions: [.1, SHOW_ROOM_HEIGHT, 4]
+        position: [SHOW_ROOM_WIDTH, 0, -1],
+        dimensions: [.1, SHOW_ROOM_HEIGHT, 8]
     }, (wall: any) => {
-        return <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+        return <SolidBody dimensions={wall.dimensions} position={wall.position}>
+            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+        </SolidBody>
     })
 
     const rightColorWallBack = S.innerWall({
-        position: [9, 0, 6],
-        dimensions: [.1, SHOW_ROOM_HEIGHT, 4]
+        position: [SHOW_ROOM_WIDTH, 0, 10],
+        dimensions: [.1, SHOW_ROOM_HEIGHT, 10]
     }, (wall: any) => {
-        return <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+        return <SolidBody dimensions={wall.dimensions} position={wall.position}>
+            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+        </SolidBody>
     })
 
     const rightColorWallCenterTop = S.innerWall({
-        position: [9, 4.5, -1],
-        dimensions: [.1, 2, 9]
+        position: [SHOW_ROOM_WIDTH, 4.5, -1],
+        dimensions: [.1, 6, SHOW_ROOM_WIDTH + 1]
     }, (wall: any) => {
-        return <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+        return <SolidBody dimensions={wall.dimensions} position={wall.position}>
+            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+        </SolidBody>
     })
 
     const rightColorWallCenterBottom = S.innerWall({
-        position: [9, 0, -1],
-        dimensions: [.1, 0.5, 9]
+        position: [SHOW_ROOM_WIDTH, 0, -1],
+        dimensions: [.1, 0.5, SHOW_ROOM_WIDTH + 1]
     }, (wall: any) => {
-        return <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+        return <SolidBody dimensions={wall.dimensions} position={wall.position}>
+            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+        </SolidBody>
     })
+
+    const floor = S.innerWall({
+        position: [0, 0, 0],
+        dimensions: [SHOW_ROOM_WIDTH, 0, SHOW_ROOM_WIDTH]
+    }, ({ position, dimensions }: any) => <Plane dimensions={dimensions} position={position} color={'white'} />)
+
 
     return <>
         {frontWall}
@@ -111,5 +135,6 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         {rightColorWallCenterTop}
         {rightColorWallCenterBottom}
         {c}
+        {floor}
     </>
 }
