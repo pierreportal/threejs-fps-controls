@@ -55,6 +55,12 @@ export const useStore = create((set: any) => ({
         return set((state: any) => state.mainTitle = mainTitle);
     },
 
+    secondHeading: null as string | null,
+
+    setSecondHeading: (secondHeading: string | null) => {
+        return set((state: any) => state.secondHeading = secondHeading)
+    },
+
     navigationZone: false,
 
     setNavigationZone: (mode: boolean) => {

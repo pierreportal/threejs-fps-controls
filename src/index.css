@@ -110,6 +110,15 @@ h1#main-title {
     color: cornsilk;
     left: 40px
 }
+h2#second-heading {
+    position: absolute;
+    top: 95px;
+    z-index: 2;
+    font-size: 32px;
+    color: cornsilk;
+    left: 40px
+
+}
 
 #nap {
     position: absolute;

@@ -9,7 +9,7 @@ interface INavigationZone {
 }
 
 export const NavigationZone: React.FunctionComponent<INavigationZone> = ({ position, dimensions, route, debug }) => {
-    const { setMainTitle, setNavigationZone } = useStore();
+    const { setSecondHeading, setNavigationZone } = useStore();
 
     const props: any = {}
     if (debug) {
@@ -19,10 +19,11 @@ export const NavigationZone: React.FunctionComponent<INavigationZone> = ({ posit
     return <mesh
         onPointerEnter={() => {
             setNavigationZone(true)
-            setMainTitle(route)
+            setSecondHeading(route)
         }}
         onPointerLeave={() => {
             setNavigationZone(false)
+            setSecondHeading(null)
         }}
         position={position}
     >

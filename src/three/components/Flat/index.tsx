@@ -50,7 +50,7 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
             <FridgeClosed position={[0.6, 0, 8.5]} rotation={[0, -Math.PI, 0]} />
             <Plane dimensions={[12, 0, 12]} position={[0, 0, 0]} />
             <Gibson position={[7.8, 0.7, 3]} scale={0.2} rotation={[1.6, -0.25, 4.7]} />
-            {/* <NavigationZone position={[0, 1, 12]} dimensions={[12, 6, 0.1]} route={"Contact"} debug /> */}
+            <NavigationZone position={[0, 1, 12]} dimensions={[12, 6, 0.1]} route={"Email"} debug />
         </FlatRelativeSpace>
     </group>
 }
