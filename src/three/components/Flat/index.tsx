@@ -15,9 +15,15 @@ import { PlayerVelocity } from '../PlayerVelocity';
 import HeavyDesk from './HeavyDesk';
 import { SolidBody } from '../utils/SolidBody';
 import { FlatRelativeSpace } from './FlatRelativeSpace';
+import { NavigationZone } from '../NavigationZone';
 
+interface IFlatProps {
+    startingPosition: false | any
+}
 
-export const Flat: React.FunctionComponent = () => {
+export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) => {
+
+    const P = startingPosition && Object.values(startingPosition)
 
     const tmpSubtitle = useTemporarySubtitle()
     const deskRef = React.useRef();
@@ -36,7 +42,7 @@ export const Flat: React.FunctionComponent = () => {
             </SolidBody>
             <Computer position={[5, 2.05, 4.5]} rotation={[0, Math.PI - 50, 0] as any} />
             <Painting dimensions={[.5, .7, .05]} photo={'bjork-photo.png'} position={[11.7, 2, 6]} rotation={[0, Math.PI / 2, 0]} />
-            <PlayerVelocity position={[6, 0, 6]} />
+            <PlayerVelocity position={P || [6, 0, 6]} />
             <SciFiDoor onClick={() => tmpSubtitle('This door is locked.', 2000)} scale={1.5} rotation={[0, Math.PI, 0]} position={[6, 0, 12]} />
             <FridgeClosed position={[0.6, 0, 11.5]} rotation={[0, -Math.PI, 0]} />
             <Fridge position={[0.6, 0, 10.5]} rotation={[0, -Math.PI, 0]} />
@@ -44,6 +50,7 @@ export const Flat: React.FunctionComponent = () => {
             <FridgeClosed position={[0.6, 0, 8.5]} rotation={[0, -Math.PI, 0]} />
             <Plane dimensions={[12, 0, 12]} position={[0, 0, 0]} />
             <Gibson position={[7.8, 0.7, 3]} scale={0.2} rotation={[1.6, -0.25, 4.7]} />
+            {/* <NavigationZone position={[0, 1, 12]} dimensions={[12, 6, 0.1]} route={"Contact"} debug /> */}
         </FlatRelativeSpace>
     </group>
 }

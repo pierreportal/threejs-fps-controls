@@ -49,10 +49,22 @@ export const useStore = create((set: any) => ({
         return set((state: any) => state.notification = notification);
     },
 
-    mainTitle: null as string | null,
+    mainTitle: 'About' as string,
 
-    setMainTitle: (mainTitle: string | null) => {
+    setMainTitle: (mainTitle: string) => {
         return set((state: any) => state.mainTitle = mainTitle);
+    },
+
+    navigationZone: false,
+
+    setNavigationZone: (mode: boolean) => {
+        return set((state: any) => state.navigationZone = mode)
+    },
+
+    navigateByPlayerMoves: false,
+
+    setNavigateByPlayerMoves: (mode: boolean) => {
+        return set((state: any) => state.navigateByPlayerMoves = mode)
     },
 
     subtitle: null as string | null,
