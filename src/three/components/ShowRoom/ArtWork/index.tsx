@@ -5,15 +5,21 @@ import SculpTest from './SculpTest';
 
 interface IArtWork {
     position: [number, number, number]
+    pupitreDiameter: number
+    pupitreHeight: number
 }
 
-export const ArtWork: React.FunctionComponent<IArtWork> = ({ position }) => {
+export const ArtWork: React.FunctionComponent<IArtWork> = ({ position, pupitreDiameter, pupitreHeight }) => {
     const artPos: any = [...position];
-    artPos[1] = 2;
+    artPos[1] = pupitreHeight;
     return <>
         <SculpTest scale={1} position={artPos} />
-        <SolidBody dimensions={[1, 1.5, 1]} position={position}>
-            <Pupitre />
+
+        <SolidBody dimensions={[pupitreDiameter, pupitreHeight + 2, pupitreDiameter]} position={position}>
+            <mesh position={position} castShadow receiveShadow>
+                <cylinderBufferGeometry attach="geometry" args={[pupitreDiameter, pupitreDiameter, pupitreHeight, 100]} />
+                <meshStandardMaterial attach="material" color="white" emissive="black" />
+            </mesh>
         </SolidBody>
     </>
 }

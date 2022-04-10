@@ -38,7 +38,7 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
 
     React.useEffect(() => {
         (sound.current as any).setBuffer(buffer);
-        (sound.current as any).setRefDistance(0.5);
+        (sound.current as any).setRefDistance(0.1);
         (sound.current as any).setLoop(true);
         camera.add(listener);
         return () => {

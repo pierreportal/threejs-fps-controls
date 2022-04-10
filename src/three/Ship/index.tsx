@@ -36,9 +36,9 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
             <Suspense fallback={<Html center style={{ color: 'white' }}>{progress.toFixed(0)}%</Html>}>
                 <NeonEffect />
                 <Flat startingPosition={startingPosition} />
-                <Debug color="red">
-                    <ShowRoom />
-                </Debug>
+                {/* <Debug color="red"> */}
+                <ShowRoom />
+                {/* </Debug> */}
             </Suspense>
         </Universe>
     </>

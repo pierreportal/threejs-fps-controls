@@ -34,9 +34,6 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
     return <group position={[0, 0, 0]}>
         <Lights />
         <FlatRelativeSpace>
-            {/* <AudioSource play={true} path={"/assets/sounds/stepTest.ogg"}> */}
-            <Box position={[0, 0, 0]} dimensions={[2, 2, 2]} />
-            {/* </AudioSource> */}
             <SolidBody dimensions={[2, 1.5, 2]} position={[4, 0, 3]}>
                 <HeavyDesk />
             </SolidBody>
