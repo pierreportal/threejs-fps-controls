@@ -122,6 +122,8 @@ export class FirstPersonCamera {
     public headBobTimer_: number;
     public position: any;
     public playerApi_: any;
+    public soundEffect: any;
+    public soundPlaying: boolean;
     // public diffCursor: any
 
 
@@ -134,7 +136,10 @@ export class FirstPersonCamera {
         this.headBobActive_ = false;
         this.headBobTimer_ = 0;
         this.playerApi_ = playerApi_;
-
+        this.soundEffect = {
+            walk: null
+        }
+        this.soundPlaying = false;
     }
     update(diff: Array<number> | boolean) {
         if (!document.pointerLockElement) return;
@@ -142,7 +147,7 @@ export class FirstPersonCamera {
         this.updateRotation_();
         this.updateCamera_();
         this.updateVelocity_();
-        this.updateHeadBob_(); // TODO: adapt to monitor FPS
+        this.updateHeadBob_();
     }
 
     updateVelocity_() {
@@ -151,6 +156,17 @@ export class FirstPersonCamera {
         const frontVector = new Vector3(0, 0, (s ? 1 : 0) - (w ? 1 : 0));
         const sideVector = new Vector3((a ? 1 : 0) - (d ? 1 : 0), 0, 0);
         this.headBobActive_ = s || w || a || d;
+
+        if (this.headBobActive_ && !this.soundPlaying) {
+            this.soundEffect.walk.play();
+            this.soundPlaying = true;
+
+        }
+        if (!this.headBobActive_) {
+            this.soundEffect.walk.pause();
+            this.soundEffect.walk._progress = 0;
+            this.soundPlaying = false;
+        }
 
         direction
             .subVectors(frontVector, sideVector)

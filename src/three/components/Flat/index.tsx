@@ -16,6 +16,8 @@ import { SolidBody } from '../utils/SolidBody';
 import { FlatRelativeSpace } from './FlatRelativeSpace';
 import { NavigationZone } from '../NavigationZone';
 import { useStore } from '../../hooks/useStore';
+import { Box } from '../objects/Box';
+import { AudioSource } from '../AudioSource';
 
 interface IFlatProps {
     startingPosition: false | any
@@ -26,14 +28,17 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
     const P = startingPosition && Object.values(startingPosition)
 
     const tmpSubtitle = useTemporarySubtitle()
-    const deskRef = React.useRef();
+
     const { mainTitle } = useStore();
 
     return <group position={[0, 0, 0]}>
         <Lights />
         <FlatRelativeSpace>
+            {/* <AudioSource play={true} path={"/assets/sounds/stepTest.ogg"}> */}
+            <Box position={[0, 0, 0]} dimensions={[2, 2, 2]} />
+            {/* </AudioSource> */}
             <SolidBody dimensions={[2, 1.5, 2]} position={[4, 0, 3]}>
-                <HeavyDesk ref={deskRef} />
+                <HeavyDesk />
             </SolidBody>
             <SolidBody dimensions={[3, 4, 1]} position={[0, 0, 7]}>
                 <SeparatorWall scale={1.65} rotation={[0, Math.PI / 2, 0]} />

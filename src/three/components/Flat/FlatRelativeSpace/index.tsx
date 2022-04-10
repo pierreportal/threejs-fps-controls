@@ -19,7 +19,7 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
 
     const c = children.map((child: React.ReactElement, i: number) => {
         return F.innerWall({
-            position: [...child.props.position],
+            position: child.props.position ? [...child.props.position] : [0, 0, 0],
             dimensions: child.props.dimensions
         }, ({ position, dimensions }: any) => {
             return React.cloneElement(child,

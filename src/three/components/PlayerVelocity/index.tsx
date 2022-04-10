@@ -1,9 +1,10 @@
 import { Triplet, useBox } from '@react-three/cannon';
 import React from 'react';
-import { useFrame, useThree } from 'react-three-fiber';
+import { useFrame, useThree, useLoader } from 'react-three-fiber';
 import { usePlayerRouting } from '../../hooks/usePlayerRouting';
 import { useStore } from '../../hooks/useStore';
 import { FirstPersonCamera } from '../utils/FirstPersonControls';
+import { AudioListener, AudioLoader } from 'three';
 
 const PLAYER_HEIGHT = 1.8;
 
@@ -20,6 +21,10 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
     const { camera } = useThree();
 
     const cameraRef = React.useRef(camera);
+    const sound = React.useRef()
+
+    const [listener] = React.useState(() => new AudioListener())
+    const buffer = useLoader(AudioLoader, "/assets/sounds/stepTest.ogg")
 
     const [playerRef, api] = useBox(() => (
         {
@@ -30,7 +35,22 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
         }
     ));
 
-    usePlayerRouting(playerRef.current?.position)
+
+    React.useEffect(() => {
+        (sound.current as any).setBuffer(buffer);
+        (sound.current as any).setRefDistance(0.5);
+        (sound.current as any).setLoop(true);
+        camera.add(listener);
+        return () => {
+            camera.remove(listener) as any;
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    ctr.soundEffect.walk = sound.current;
+
+    usePlayerRouting(playerRef.current?.position);
+
 
     api.position.subscribe((p: Triplet) => {
         playerRef.current?.position.set(...p)
@@ -51,5 +71,7 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
         api.rotation.set(0, 0, 0);
     });
 
-    return <mesh ref={playerRef}></mesh>
+    return <mesh ref={playerRef}>
+        <positionalAudio ref={sound} args={[listener]} />
+    </mesh>
 };
