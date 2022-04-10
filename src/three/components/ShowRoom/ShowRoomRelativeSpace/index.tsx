@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStore } from '../../../hooks/useStore';
 import { Box } from '../../objects/Box';
 import { Plane } from '../../objects/Plane';
 import FlatClass from '../../utils/constructorGeometry';
@@ -27,6 +28,7 @@ const S = new FlatClass(
 );
 
 export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpace> = ({ children }) => {
+    const { enableControls } = useStore();
 
     const c = children.map((child: React.ReactElement, i: number) => {
         return S.innerWall({
@@ -51,7 +53,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         dimensions: [SHOW_ROOM_WIDTH + 1, SHOW_ROOM_HEIGHT, 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+            <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
         </SolidBody>
     })
 
@@ -60,7 +62,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         dimensions: [1, SHOW_ROOM_HEIGHT, SHOW_ROOM_WIDTH + 2]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+            <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
         </SolidBody>
     })
 
@@ -69,7 +71,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         dimensions: [SHOW_ROOM_WIDTH + 1, SHOW_ROOM_HEIGHT, 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+            <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
         </SolidBody>
     })
 
@@ -78,7 +80,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         dimensions: [SHOW_ROOM_WIDTH + 1, 1, SHOW_ROOM_WIDTH + 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+            <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
         </SolidBody>
     })
 
@@ -87,7 +89,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         dimensions: [.1, SHOW_ROOM_HEIGHT, 8]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+            <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
         </SolidBody>
     })
 
@@ -96,7 +98,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         dimensions: [.1, SHOW_ROOM_HEIGHT, 10]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+            <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
         </SolidBody>
     })
 
@@ -105,7 +107,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         dimensions: [.1, 6, SHOW_ROOM_WIDTH + 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+            <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
         </SolidBody>
     })
 
@@ -114,14 +116,14 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
         dimensions: [.1, 0.5, SHOW_ROOM_WIDTH + 1]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box color="white" position={wall.position} dimensions={wall.dimensions} floating />
+            <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
         </SolidBody>
     })
 
     const floor = S.innerWall({
         position: [0, 0, 0],
         dimensions: [SHOW_ROOM_WIDTH, 0, SHOW_ROOM_WIDTH]
-    }, ({ position, dimensions }: any) => <Plane dimensions={dimensions} position={position} color={'white'} />)
+    }, ({ position, dimensions }: any) => <Plane dimensions={dimensions} position={position} color="lightgrey" emissive={"white"} emissiveIntensity={0.05} />)
 
 
     return <>

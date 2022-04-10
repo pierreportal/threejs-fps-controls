@@ -30,7 +30,7 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
         {
             type: 'Dynamic',
             mass: 100,
-            position: [position[0], position[1] + 1, position[2]],
+            position: [position[0], position[1], position[2]],
             args: [1, 2, 1]
         }
     ));
@@ -51,7 +51,6 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
 
     usePlayerRouting(playerRef.current?.position);
 
-
     api.position.subscribe((p: Triplet) => {
         playerRef.current?.position.set(...p)
     });
@@ -68,7 +67,15 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
             cameraRef.current?.position.y || PLAYER_HEIGHT - 0.3 as number,
             playerRef.current?.position.z as number
         );
+        // if (!enableControls) {
+        //     cameraRef.current?.rotation.set(
+        //         -Math.PI / 2 - 50,
+        //         0,
+        //         0
+        //     );
+        // }
         api.rotation.set(0, 0, 0);
+        // api.applyForce([0, 0, 0], [1, 1, 1])
     });
 
     return <mesh ref={playerRef}>

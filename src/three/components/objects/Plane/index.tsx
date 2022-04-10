@@ -5,8 +5,10 @@ interface IOwnProps {
     position: [number, number, number],
     dimensions: [number, number, number],
     color?: string
+    emissive?: string,
+    emissiveIntensity?: number
 }
-export const Plane: React.FunctionComponent<IOwnProps> = ({ position, dimensions, color }) => {
+export const Plane: React.FunctionComponent<IOwnProps> = ({ position, dimensions, color, emissive, emissiveIntensity }) => {
 
     const [ref] = usePlane(() => ({
         rotation: [-Math.PI / 2, 0, 0],
@@ -16,8 +18,10 @@ export const Plane: React.FunctionComponent<IOwnProps> = ({ position, dimensions
     return (
         <mesh position={position} receiveShadow castShadow ref={ref}>
             <planeBufferGeometry attach="geometry" args={[w, l]} />
-            <meshPhongMaterial
+            <meshStandardMaterial
                 color={color || 'grey'}
+                emissive={emissive || 'black'}
+                emissiveIntensity={emissiveIntensity || 1}
             />
         </mesh>
     )

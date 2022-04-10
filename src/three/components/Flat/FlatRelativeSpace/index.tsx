@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStore } from '../../../hooks/useStore';
 import { Box } from '../../objects/Box';
 import FlatClass from '../../utils/constructorGeometry';
 import { SolidBody } from '../../utils/SolidBody';
@@ -15,7 +16,7 @@ const F = new FlatClass(
 )
 
 export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({ children }) => {
-
+    const { enableControls } = useStore();
 
     const c = children.map((child: React.ReactElement, i: number) => {
         return F.innerWall({
@@ -31,13 +32,19 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
         });
     });
 
-    const walls = ['back', 'right', 'top'].map((side: string) => {
+    const walls = ['back', 'right'].map((side: string) => {
         return F.build(side, (wall: any, i: number) => {
             return <SolidBody key={side} dimensions={wall.dimensions} position={wall.position}>
                 <Box key={i} position={wall.position as any} dimensions={wall.dimensions as any} floating />
             </SolidBody>
         });
     })
+
+    const roof = F.build('top', (wall: any, i: number) => {
+        return <SolidBody key={'top'} dimensions={wall.dimensions} position={wall.position}>
+            <Box key={i} position={wall.position as any} dimensions={wall.dimensions as any} floating />
+        </SolidBody>
+    });
 
 
     return <group position={[0, 0, 0]}>
@@ -106,6 +113,7 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
         )}
 
         {walls}
+        {roof}
         {c}
     </group>
 }

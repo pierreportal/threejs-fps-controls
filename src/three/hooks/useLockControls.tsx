@@ -15,7 +15,11 @@ export const useLockControls = () => {
     };
 
     const toggleControl = () => {
+        document.getElementsByTagName('canvas')[0].classList.toggle('cleared')
         document.getElementById('nap')?.classList.toggle('faded');
+        document.getElementById('eye-lid-up')?.classList.toggle('closed');
+        document.getElementById('eye-lid-down')?.classList.toggle('closed');
+
         if (!document.pointerLockElement) {
             setEnableControls(false)
         }

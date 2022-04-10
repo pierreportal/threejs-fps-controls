@@ -6,8 +6,8 @@ import * as THREE from 'three'
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-import { useTexturizer } from '../../../../hooks/useTexturizer'
-import { useInterval } from '../../../../hooks/useInterval'
+import { useTexturizer } from '../../../../../hooks/useTexturizer'
+import { useInterval } from '../../../../../hooks/useInterval'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -30,15 +30,15 @@ export default function SculpTest({ ...props }: JSX.IntrinsicElements['group']) 
 
   (nodes.Cube.material as any).displacementMap = 0;
 
-  const [r, setR] = React.useState(0);
+  // const [r, setR] = React.useState(0);
 
-  useInterval(() => {
-    setR(() => r + 0.001)
-  }, 10);
+  // useInterval(() => {
+  //   setR(() => r + 0.001)
+  // }, 10);
 
   return (
     <group  {...props} dispose={null}>
-      <mesh rotation={[0, r, 0]} castShadow receiveShadow geometry={nodes.Cube.geometry} material={nodes.Cube.material} position={[0, 0.75, 0]} scale={[0.25, 0.75, 0.25]} />
+      <mesh castShadow receiveShadow geometry={nodes.Cube.geometry} material={nodes.Cube.material} position={[0, 0.75, 0]} scale={[0.25, 0.75, 0.25]} />
     </group>
   )
 }

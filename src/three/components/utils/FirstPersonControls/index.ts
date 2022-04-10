@@ -151,11 +151,17 @@ export class FirstPersonCamera {
     }
 
     updateVelocity_() {
-        const { s, w, a, d } = this.input_.keys_;
+        const { s, w, a, d, S, W, A, D } = this.input_.keys_;
+        const UP = w || W;
+        const DOWN = s || S;
+        const RIGHT = d || D;
+        const LEFT = a || A;
+
         const direction = new Vector3();
-        const frontVector = new Vector3(0, 0, (s ? 1 : 0) - (w ? 1 : 0));
-        const sideVector = new Vector3((a ? 1 : 0) - (d ? 1 : 0), 0, 0);
-        this.headBobActive_ = s || w || a || d;
+        const frontVector = new Vector3(0, 0, (DOWN ? 1 : 0) - (UP ? 1 : 0));
+        const sideVector = new Vector3((LEFT ? 1 : 0) - (RIGHT ? 1 : 0), 0, 0);
+
+        this.headBobActive_ = DOWN || UP || LEFT || RIGHT;
 
         if (this.headBobActive_ && !this.soundPlaying) {
             this.soundEffect.walk.play();

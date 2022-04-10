@@ -10,9 +10,15 @@ interface IUniverseProps {
 
 export const Universe: React.FunctionComponent<IUniverseProps> = ({ children }) => {
 
-    return <FullScreenCanvas shadows>
-        <Physics gravity={[0, -9.81, 0]}>
-            {children}
-        </Physics>
-    </FullScreenCanvas>
+    return <>
+        <div id="eye-lid-up" className="closed">
+        </div>
+        <FullScreenCanvas shadows>
+            <Physics gravity={[0, -9.81, 0]}>
+                {children}
+            </Physics>
+        </FullScreenCanvas>
+        <div id="eye-lid-down" className="closed">
+        </div>
+    </>
 }

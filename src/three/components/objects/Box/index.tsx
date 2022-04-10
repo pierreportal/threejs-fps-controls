@@ -17,6 +17,8 @@ interface IBoxProps {
     textureWrapping?: number[];
     isHovered?: any | null;
     color?: string
+    emissive?: string
+    emissiveIntensity?: number
 }
 
 const Box_: React.FunctionComponent<IBoxProps & SelectableElementProps> = (
@@ -32,7 +34,9 @@ const Box_: React.FunctionComponent<IBoxProps & SelectableElementProps> = (
         onPointerLeave,
         texture,
         textureWrapping,
-        color
+        color,
+        emissive,
+        emissiveIntensity
     }
 ) => {
 
@@ -87,7 +91,8 @@ const Box_: React.FunctionComponent<IBoxProps & SelectableElementProps> = (
         <meshStandardMaterial
             color={color || 'grey'}
             displacementScale={0}
-            emissive={isHovered ? 'hsl(180, 70%, 50%)' : 'black'}
+            emissive={emissive || (isHovered ? 'hsl(180, 70%, 50%)' : 'black')}
+            emissiveIntensity={emissiveIntensity || 1}
         // {...loadedTexture}
         />
     </mesh>
