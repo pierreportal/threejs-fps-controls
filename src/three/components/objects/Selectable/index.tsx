@@ -5,12 +5,13 @@ import { useStore } from '../../../hooks/useStore';
 interface IOwnProps {
     children: React.ReactElement,
     callback: Function,
-    tip?: string
+    tip?: string,
+    restrictedArea?: string,
 }
 
-export const Selectable: React.FunctionComponent<IOwnProps> = ({ children, callback, tip }) => {
-    const { setSubtitle } = useStore();
+export const Selectable: React.FunctionComponent<IOwnProps> = ({ children, callback, tip, restrictedArea }) => {
 
+    const { setSubtitle, mainTitle } = useStore();
     const [isHovered, setIsHovered] = React.useState<any | null>(null);
 
     const handleHover = (a: any) => setIsHovered(a);
@@ -22,24 +23,22 @@ export const Selectable: React.FunctionComponent<IOwnProps> = ({ children, callb
 
     React.useEffect(() => {
         if (isHovered) {
-            // const { children: kid } = children.props
-            // if (kid?.props?.position) {
-            //     setPointingObjectForDistance(kid?.props?.position)
-            // }
             document.getElementById('pointer')?.classList.add('active');
             if (tip) {
                 setSubtitle(tip);
             }
 
         } else {
-            // setPointingObjectForDistance(null)
             document.getElementById('pointer')?.classList.remove('active');
             if (tip) {
                 setSubtitle(null)
-
             }
         }
     }, [isHovered, setSubtitle, tip])
+
+    if (restrictedArea && restrictedArea !== mainTitle) {
+        return React.cloneElement(children, { onPointerLeave: handleLeave })
+    };
 
     const selectableChild = React.cloneElement(children, {
         onPointerEnter: handleHover,

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Plane } from '../objects/Plane';
-import { Selectable } from '../objects/Selectable';
 import { Lights } from './Lights';
 import { Computer } from './Computer';
 import Gibson from './Gibson';
@@ -16,6 +15,7 @@ import HeavyDesk from './HeavyDesk';
 import { SolidBody } from '../utils/SolidBody';
 import { FlatRelativeSpace } from './FlatRelativeSpace';
 import { NavigationZone } from '../NavigationZone';
+import { useStore } from '../../hooks/useStore';
 
 interface IFlatProps {
     startingPosition: false | any
@@ -27,6 +27,7 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
 
     const tmpSubtitle = useTemporarySubtitle()
     const deskRef = React.useRef();
+    const { mainTitle } = useStore();
 
     return <group position={[0, 0, 0]}>
         <Lights />
@@ -43,14 +44,17 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
             <Computer position={[5, 2.05, 4.5]} rotation={[0, Math.PI - 50, 0] as any} />
             <Painting dimensions={[.5, .7, .05]} photo={'bjork-photo.png'} position={[11.7, 2, 6]} rotation={[0, Math.PI / 2, 0]} />
             <PlayerVelocity position={P || [6, 0, 6]} />
-            <SciFiDoor onClick={() => tmpSubtitle('This door is locked.', 2000)} scale={1.5} rotation={[0, Math.PI, 0]} position={[6, 0, 12]} />
+            <SciFiDoor onClick={
+                () => mainTitle === 'Contact' && tmpSubtitle('This door is locked.', 2000)
+            } scale={1.5} rotation={[0, Math.PI, 0]} position={[6, 0, 12]} />
             <FridgeClosed position={[0.6, 0, 11.5]} rotation={[0, -Math.PI, 0]} />
             <Fridge position={[0.6, 0, 10.5]} rotation={[0, -Math.PI, 0]} />
             <FridgeClosed position={[0.6, 0, 9.5]} rotation={[0, -Math.PI, 0]} />
             <FridgeClosed position={[0.6, 0, 8.5]} rotation={[0, -Math.PI, 0]} />
             <Plane dimensions={[12, 0, 12]} position={[0, 0, 0]} />
             <Gibson position={[7.8, 0.7, 3]} scale={0.2} rotation={[1.6, -0.25, 4.7]} />
-            <NavigationZone position={[0, 1, 12]} dimensions={[12, 6, 0.1]} route={"Email"} debug />
+            <Moka position={[5.5, 1.57, 3.5]} scale={0.05} rotation={[0, 500, 0]} />
+            {/* <NavigationZone position={[0, 1, 12]} dimensions={[12, 6, 0.1]} route={"Email"} debug /> */}
         </FlatRelativeSpace>
     </group>
 }

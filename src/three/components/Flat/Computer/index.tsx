@@ -31,7 +31,7 @@ export const Computer: React.FunctionComponent<IComputerProps> = ({ position, ro
     }
 
     return <group ref={ref} position={position}>
-        <Selectable callback={() => false} tip={"I am a software engineer"}>
+        <Selectable callback={() => false} tip={"I am a software engineer"} restrictedArea={"About"}>
             <mesh>
                 <planeBufferGeometry attach="geometry" args={[.6, .6]} />
                 <meshPhongMaterial
@@ -43,7 +43,7 @@ export const Computer: React.FunctionComponent<IComputerProps> = ({ position, ro
                 <rectAreaLight color="cyan" intensity={1} width={1} height={1} rotation={rotation} />
             </mesh>
         </Selectable>
-        <Selectable callback={displayScreenTerminal} tip={"Maybe I can type something..."}>
+        <Selectable callback={displayScreenTerminal} tip={"Maybe I can type something..."} restrictedArea={"About"}>
             <mesh>
                 <MacKeyboard rotation={rotation} scale={0.05} position={[0, - 0.5, 0.5]} />
             </mesh>

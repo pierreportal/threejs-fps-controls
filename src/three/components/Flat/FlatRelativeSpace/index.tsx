@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from '../../objects/Box';
 import FlatClass from '../../utils/constructorGeometry';
 import { SolidBody } from '../../utils/SolidBody';
-import SeparatorWall from '../SeparatorWall';
 
 interface IFlatRelativeSpace {
     children: Array<React.ReactElement>
@@ -17,13 +16,19 @@ const F = new FlatClass(
 
 export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({ children }) => {
 
+
     const c = children.map((child: React.ReactElement, i: number) => {
         return F.innerWall({
             position: [...child.props.position],
             dimensions: child.props.dimensions
-        }, (wall: any) => {
-            return React.cloneElement(child, { key: i, position: wall.position, dimensions: wall.dimensions })
-        })
+        }, ({ position, dimensions }: any) => {
+            return React.cloneElement(child,
+                {
+                    key: i,
+                    position: position,
+                    dimensions: dimensions,
+                });
+        });
     });
 
     const walls = ['back', 'right', 'top'].map((side: string) => {
