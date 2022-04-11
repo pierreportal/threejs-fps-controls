@@ -28,7 +28,6 @@ const S = new FlatClass(
 );
 
 export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpace> = ({ children }) => {
-    const { enableControls } = useStore();
 
     const c = children.map((child: React.ReactElement, i: number) => {
         return S.innerWall({
@@ -77,7 +76,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
 
     const topWall = S.innerWall({
         position: [-1, SHOW_ROOM_HEIGHT, -1],
-        dimensions: [SHOW_ROOM_WIDTH + 1, 1, SHOW_ROOM_WIDTH + 1]
+        dimensions: [SHOW_ROOM_WIDTH + 1, 1, SHOW_ROOM_WIDTH + 2]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
             <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />
@@ -95,7 +94,7 @@ export const ShowRoomRelativeSpace: React.FunctionComponent<IShowRoomRelativeSpa
 
     const rightColorWallBack = S.innerWall({
         position: [SHOW_ROOM_WIDTH, 0, 10],
-        dimensions: [.1, SHOW_ROOM_HEIGHT, 10]
+        dimensions: [.1, SHOW_ROOM_HEIGHT, 8]
     }, (wall: any) => {
         return <SolidBody dimensions={wall.dimensions} position={wall.position}>
             <Box emissive={'white'} emissiveIntensity={0.1} color="salmon" position={wall.position} dimensions={wall.dimensions} floating />

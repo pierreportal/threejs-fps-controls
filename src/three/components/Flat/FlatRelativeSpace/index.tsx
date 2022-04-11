@@ -32,19 +32,47 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
         });
     });
 
-    const walls = ['back', 'right'].map((side: string) => {
-        return F.build(side, (wall: any, i: number) => {
-            return <SolidBody key={side} dimensions={wall.dimensions} position={wall.position}>
-                <Box key={i} position={wall.position as any} dimensions={wall.dimensions as any} floating />
-            </SolidBody>
-        });
-    })
+    const backWallLeft = F.innerWall({
+        position: [0, 0, 12],
+        dimensions: [5, 4, 0.5]
+    }, (wall: any) =>
+        <SolidBody dimensions={wall.dimensions} position={wall.position}>
+            <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+        </SolidBody>
+    );
+    const backWallRight = F.innerWall({
+        position: [7.1, 0, 12],
+        dimensions: [5, 4, 0.5]
+    }, (wall: any) =>
+        <SolidBody dimensions={wall.dimensions} position={wall.position}>
+            <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+        </SolidBody>
+    )
 
-    const roof = F.build('top', (wall: any, i: number) => {
-        return <SolidBody key={'top'} dimensions={wall.dimensions} position={wall.position}>
+    const backWallTop = F.innerWall({
+        position: [4.9, 2.8, 12],
+        dimensions: [2.4, 1.2, 0.5]
+    }, (wall: any) =>
+        <SolidBody dimensions={wall.dimensions} position={wall.position}>
+            <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+        </SolidBody>
+    )
+
+    const rightWall = F.build('right', (wall: any, i: number) => {
+        return <SolidBody dimensions={wall.dimensions} position={wall.position}>
             <Box key={i} position={wall.position as any} dimensions={wall.dimensions as any} floating />
         </SolidBody>
     });
+
+
+    const roof = F.innerWall({
+        position: [0, 4, -1],
+        dimensions: [13, 1, 13.5]
+    }, (wall: any) => (
+        <SolidBody dimensions={wall.dimensions} position={wall.position}>
+            <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
+        </SolidBody>)
+    );
 
 
     return <group position={[0, 0, 0]}>
@@ -96,7 +124,7 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
 
         {F.innerWall({
             position: [-1, 0, 6],
-            dimensions: [1, 4, 6]
+            dimensions: [1, 4, 7]
         }, (wall: any) =>
             <SolidBody dimensions={wall.dimensions} position={wall.position}>
                 <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
@@ -105,15 +133,18 @@ export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({
 
         {F.innerWall({
             position: [-1, 4, -1],
-            dimensions: [1, 2, 12]
+            dimensions: [1, 2, 14]
         }, (wall: any) =>
             <SolidBody dimensions={wall.dimensions} position={wall.position}>
                 <Box position={wall.position as any} dimensions={wall.dimensions as any} floating />
             </SolidBody>
         )}
 
-        {walls}
+        {rightWall}
         {roof}
+        {backWallLeft}
+        {backWallRight}
+        {backWallTop}
         {c}
     </group>
 }

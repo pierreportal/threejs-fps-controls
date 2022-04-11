@@ -4,7 +4,7 @@ import { Routing } from './Routing';
 import { TextPage } from './TextPages';
 import { useStore } from './three/hooks/useStore';
 
-const DEBUG = false;
+export const DEBUG = false;
 
 function App() {
 

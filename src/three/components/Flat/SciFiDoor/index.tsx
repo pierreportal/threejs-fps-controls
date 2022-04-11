@@ -6,6 +6,11 @@ import * as THREE from 'three'
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import { useInterval } from '../../../hooks/useInterval'
+import { useBox } from '@react-three/cannon'
+import { SolidBody } from '../../utils/SolidBody'
+import { useTemporarySubtitle } from '../../../hooks/useTemporarySybtitle'
+import { useSoundEffect } from '../../../hooks/useSoundEffect'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -18,17 +23,59 @@ type GLTFResult = GLTF & {
   }
 }
 
-export default function SciFiDoor({ ...props }: JSX.IntrinsicElements['group']) {
-  const group = useRef<THREE.Group>()
+export default function SciFiDoor({ ...props }: JSX.IntrinsicElements['group'] | any) {
   const { nodes, materials } = useGLTF('/assets/models/scifidoor.gltf') as GLTFResult
   materials.Material.color = { r: 0.5, g: 0.5, b: 0.5 } as any;
-  return (
-    <group ref={group} {...props} dispose={null}>
-      <mesh geometry={nodes.Cube.geometry} material={materials.Material} position={[-0.35, 1, 0]} scale={[0.7, 1, 0.1]} />
-      <mesh geometry={nodes.Cube001.geometry} material={materials.Material} position={[0.36, 1, 0]} rotation={[0, 0, Math.PI]} scale={[0.7, 1, 0.1]} />
+  const [o, setO] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
+
+  useInterval(() => {
+    if (open && o < 1) {
+      setO(o + 0.01)
+    } else if (!open && o > 0) {
+      setO(o - 0.01)
+    }
+  }, 10)
+
+  const tmpSubtitle = useTemporarySubtitle()
+
+  const { soundObject: lockedSound, soundOn: playLocked } = useSoundEffect('/assets/sounds/impactMetal_001.ogg');
+  const { soundObject: openSound, soundOn: playOpen } = useSoundEffect('/assets/sounds/forceField_002.ogg');
+
+
+  React.useEffect(() => {
+    if (open) {
+      setTimeout(() => setOpen(false), 4000)
+    }
+  }, [open])
+
+  const handleSciFiDoorEffect = () => {
+    if (props.locked) {
+      tmpSubtitle('This door is locked.', 2000);
+      playLocked();
+      return
+    }
+    if (!open) {
+      setOpen(true);
+      playOpen()
+    };
+  };
+
+  const doorMesh = (
+    <group onClick={handleSciFiDoorEffect} {...props} dispose={null}>
+      {lockedSound}
+      {openSound}
+      <mesh geometry={nodes.Cube.geometry} material={materials.Material} position={[-0.35 + -1 * o, 1, 0]} scale={[0.7, 1, 0.1]} />
+      <mesh geometry={nodes.Cube001.geometry} material={materials.Material} position={[0.36 + 1 * o, 1, 0]} rotation={[0, 0, Math.PI]} scale={[0.7, 1, 0.1]} />
       <mesh geometry={nodes.Cube002.geometry} material={nodes.Cube002.material} position={[0, 1, 0]} scale={[0.85, 1, 0.2]} />
-    </group>
+    </group >
   )
+
+  return !open ? (
+    <SolidBody position={props.position as any} dimensions={[2, 3, 1]}>
+      {doorMesh}
+    </SolidBody>
+  ) : doorMesh
 }
 
 useGLTF.preload('/assets/models/scifidoor.gltf')

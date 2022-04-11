@@ -1,16 +1,18 @@
 import { Debug } from '@react-three/cannon';
-import { Html, useProgress } from '@react-three/drei';
-import { DepthOfField, EffectComposer } from '@react-three/postprocessing';
+import { Html, Sky, useProgress, OrbitControls } from '@react-three/drei';
 import React, { Suspense } from 'react';
+// import { OrbitControls } from 'three-stdlib';
 import { Flat } from '../components/Flat';
+import { Hallway } from '../components/Hallway';
 import { NeonEffect } from '../components/objects/Neon';
 import { ShowRoom } from '../components/ShowRoom';
 import { Universe } from '../components/Universe';
 import { useLockControls } from '../hooks/useLockControls';
 import { getUserPositionFromRoute } from '../hooks/usePlayerRouting';
+// import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { useStore } from '../hooks/useStore';
 
-
+import { DEBUG } from '../../App'
 interface IShip {
     location: string;
 }
@@ -36,18 +38,26 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
         }
         <Universe>
             <Suspense fallback={<Html center style={{ color: 'white' }}>{progress.toFixed(0)}%</Html>}>
-                {/* <EffectComposer>
-                    <DepthOfField
-                        focusDistance={2}
-                        focalLength={0.1}
-                        bokehScale={2}
-                    />
-                </EffectComposer> */}
-                <NeonEffect />
-                {/* <Debug color="red"> */}
-                <Flat startingPosition={startingPosition} />
-                <ShowRoom />
-                {/* </Debug> */}
+
+                {DEBUG ? (
+                    <>
+                        <Sky />
+                        <OrbitControls />
+                        <Debug color="magenta">
+                            <Flat startingPosition={startingPosition} />
+                            <ShowRoom />
+                            <Hallway />
+                        </Debug>
+                    </>
+                ) : (
+                    <>
+                        <NeonEffect />
+                        <Flat startingPosition={startingPosition} />
+                        <ShowRoom />
+                        <Hallway />
+                    </>
+                )}
+
             </Suspense>
         </Universe>
     </>

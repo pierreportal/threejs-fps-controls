@@ -17,7 +17,7 @@ import { FlatRelativeSpace } from './FlatRelativeSpace';
 import { NavigationZone } from '../NavigationZone';
 import { useStore } from '../../hooks/useStore';
 import { useSoundEffect } from '../../hooks/useSoundEffect';
-
+import { DEBUG } from '../../../App';
 interface IFlatProps {
     startingPosition: false | any
 }
@@ -30,17 +30,17 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
 
     const { mainTitle } = useStore();
 
-    const { soundObject, soundOn } = useSoundEffect('/assets/sounds/impactMetal_001.ogg');
+    // const { soundObject, soundOn } = useSoundEffect('/assets/sounds/impactMetal_001.ogg');
 
-    const handleSciFiDoorEffect = () => {
-        if (mainTitle !== 'Contact') return;
-        tmpSubtitle('This door is locked.', 2000);
-        soundOn();
-    };
+    // const handleSciFiDoorEffect = () => {
+    //     if (mainTitle !== 'Contact') return;
+    //     tmpSubtitle('This door is locked.', 2000);
+    //     soundOn();
+    // };
 
 
     return <group position={[0, 0, 0]}>
-        {soundObject}
+        {/* {soundObject} */}
         <Lights />
         <FlatRelativeSpace>
             <SolidBody dimensions={[2, 1.5, 2]} position={[4, 0, 3]}>
@@ -54,8 +54,9 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
             </SolidBody>
             <Computer position={[5, 2.05, 4.5]} rotation={[0, Math.PI - 50, 0] as any} />
             <Painting dimensions={[.5, .7, .05]} photo={'bjork-photo.png'} position={[11.7, 2, 6]} rotation={[0, Math.PI / 2, 0]} />
-            <PlayerVelocity position={P || [6, 0, 6]} />
-            <SciFiDoor onClick={handleSciFiDoorEffect} scale={1.5} rotation={[0, Math.PI, 0]} position={[6, 0, 12]} />
+            {!DEBUG ? <PlayerVelocity position={P || [6, 0, 6]} /> : <></>}
+            <SciFiDoor scale={1.5} rotation={[0, Math.PI, 0]} position={[6, 0, 12.2]} />
+            <SciFiDoor scale={1.5} rotation={[0, 0, 0]} position={[10, 0, 0]} locked />
             <FridgeClosed position={[0.6, 0, 11.5]} rotation={[0, -Math.PI, 0]} />
             <Fridge position={[0.6, 0, 10.5]} rotation={[0, -Math.PI, 0]} />
             <FridgeClosed position={[0.6, 0, 9.5]} rotation={[0, -Math.PI, 0]} />
