@@ -12,7 +12,7 @@ import SculpTestC from './ArtWork/scupltures/SculpTestC';
 
 import { ShowRoomRelativeSpace } from './ShowRoomRelativeSpace';
 
-export const ShowRoom: React.FunctionComponent = () => {
+const _ShowRoom: React.FunctionComponent = () => {
 
     const pupitres: Array<any> = [
         [6, 0, 6],
@@ -75,3 +75,5 @@ export const ShowRoom: React.FunctionComponent = () => {
         </ShowRoomRelativeSpace>
     </group>
 }
+
+export const ShowRoom = React.memo(_ShowRoom);

@@ -37,7 +37,7 @@ export const HallwayRelativeSpace: React.FunctionComponent<IHallwayRelativeSpace
         dimensions: [1, 4, 14]
     }, (wall: any) =>
         <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box emissive={'coral'} emissiveIntensity={0.1} position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            <Box color="orange" position={wall.position as any} dimensions={wall.dimensions as any} floating />
         </SolidBody>
     );
 
@@ -46,7 +46,7 @@ export const HallwayRelativeSpace: React.FunctionComponent<IHallwayRelativeSpace
         dimensions: [1, 4, 10]
     }, (wall: any) =>
         <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box emissive={'coral'} emissiveIntensity={0.1} position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            <Box color="orange" position={wall.position as any} dimensions={wall.dimensions as any} floating />
         </SolidBody>
     );
 
@@ -55,7 +55,7 @@ export const HallwayRelativeSpace: React.FunctionComponent<IHallwayRelativeSpace
         dimensions: [6, 1, 15]
     }, (wall: any) =>
         <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box emissive={'coral'} emissiveIntensity={0.1} position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            <Box color="orange" position={wall.position as any} dimensions={wall.dimensions as any} floating />
         </SolidBody>
     );
 
@@ -65,7 +65,7 @@ export const HallwayRelativeSpace: React.FunctionComponent<IHallwayRelativeSpace
         dimensions: [10, 1, 6]
     }, (wall: any) =>
         <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box emissive={'coral'} emissiveIntensity={0.1} position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            <Box color="orange" position={wall.position as any} dimensions={wall.dimensions as any} floating />
         </SolidBody>
     );
 
@@ -76,7 +76,7 @@ export const HallwayRelativeSpace: React.FunctionComponent<IHallwayRelativeSpace
         dimensions: [10, 4, 1]
     }, (wall: any) =>
         <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box emissive={'coral'} emissiveIntensity={0.1} position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            <Box color="orange" position={wall.position as any} dimensions={wall.dimensions as any} floating />
         </SolidBody>
     );
 
@@ -85,7 +85,7 @@ export const HallwayRelativeSpace: React.FunctionComponent<IHallwayRelativeSpace
         dimensions: [16, 4, 1]
     }, (wall: any) =>
         <SolidBody dimensions={wall.dimensions} position={wall.position}>
-            <Box emissive={'coral'} emissiveIntensity={0.1} position={wall.position as any} dimensions={wall.dimensions as any} floating />
+            <Box color="orange" position={wall.position as any} dimensions={wall.dimensions as any} floating />
         </SolidBody>
     );
 

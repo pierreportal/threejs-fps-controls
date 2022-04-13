@@ -18,11 +18,12 @@ import { NavigationZone } from '../NavigationZone';
 import { useStore } from '../../hooks/useStore';
 import { useSoundEffect } from '../../hooks/useSoundEffect';
 import { DEBUG } from '../../../App';
+import { NeonLight } from '../objects/NeonLight';
 interface IFlatProps {
     startingPosition: false | any
 }
 
-export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) => {
+const _Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) => {
 
     const P = startingPosition && Object.values(startingPosition)
 
@@ -42,7 +43,11 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
     return <group position={[0, 0, 0]}>
         {/* {soundObject} */}
         <Lights />
+
         <FlatRelativeSpace>
+            <NeonLight length={4} position={[8, 4, 2]} rotation={[Math.PI / 2, 0, 0] as any} color={'violet'} />
+            <NeonLight length={8} position={[4, 4, 0]} rotation={[0, 0, Math.PI / 2] as any} color={'violet'} />
+
             <SolidBody dimensions={[2, 1.5, 2]} position={[4, 0, 3]}>
                 <HeavyDesk />
             </SolidBody>
@@ -68,3 +73,5 @@ export const Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) 
         </FlatRelativeSpace>
     </group>
 }
+
+export const Flat = React.memo(_Flat);

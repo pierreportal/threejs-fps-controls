@@ -16,7 +16,6 @@ const F = new FlatClass(
 )
 
 export const FlatRelativeSpace: React.FunctionComponent<IFlatRelativeSpace> = ({ children }) => {
-    const { enableControls } = useStore();
 
     const c = children.map((child: React.ReactElement, i: number) => {
         return F.innerWall({

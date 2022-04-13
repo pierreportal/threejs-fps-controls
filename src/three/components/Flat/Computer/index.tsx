@@ -11,7 +11,7 @@ interface IComputerProps {
     rotation: Euler;
 }
 
-export const Computer: React.FunctionComponent<IComputerProps> = ({ position, rotation }) => {
+export const _Computer: React.FunctionComponent<IComputerProps> = ({ position, rotation }) => {
     const textureScreen = useLoader(TextureLoader, '/assets/images/screenTest.png')
 
     const [ref] = useBox(() => (
@@ -33,14 +33,12 @@ export const Computer: React.FunctionComponent<IComputerProps> = ({ position, ro
     return <group ref={ref} position={position}>
         <Selectable callback={() => false} tip={"I am a software engineer"} restrictedArea={"About"}>
             <mesh>
-                <planeBufferGeometry attach="geometry" args={[.6, .6]} />
+                <boxBufferGeometry attach="geometry" args={[.6, .6, 0.00001]} />
                 <meshPhongMaterial
                     map={textureScreen}
                     transparent
                     emissive={'cyan'}
                 />
-                <pointLight intensity={.02} color="green" />
-                <rectAreaLight color="cyan" intensity={1} width={1} height={1} rotation={rotation} />
             </mesh>
         </Selectable>
         <Selectable callback={displayScreenTerminal} tip={"Maybe I can type something..."} restrictedArea={"About"}>
@@ -50,3 +48,5 @@ export const Computer: React.FunctionComponent<IComputerProps> = ({ position, ro
         </Selectable>
     </group>
 };
+
+export const Computer = React.memo(_Computer)

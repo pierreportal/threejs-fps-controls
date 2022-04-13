@@ -13,6 +13,7 @@ import { getUserPositionFromRoute } from '../hooks/usePlayerRouting';
 import { useStore } from '../hooks/useStore';
 
 import { DEBUG } from '../../App'
+import { OutsideWorld } from '../components/OutsideWorld';
 interface IShip {
     location: string;
 }
@@ -25,19 +26,22 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
 
     const startingPosition = !navigateByPlayerMoves && getUserPositionFromRoute(location);
 
+
+
     return <>
         {
             progress === 100 &&
             (
                 enableControls
                     ? pointer
-                    : <>
+                    : !DEBUG && <>
                         <button id="play-button" onClick={controlOn}>Come in</button>
                     </>
             )
         }
         <Universe>
             <Suspense fallback={<Html center style={{ color: 'white' }}>{progress.toFixed(0)}%</Html>}>
+                <OutsideWorld />
 
                 {DEBUG ? (
                     <>
