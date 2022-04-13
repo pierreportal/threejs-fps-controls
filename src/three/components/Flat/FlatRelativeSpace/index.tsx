@@ -1,12 +1,10 @@
 import React from 'react';
-import { useStore } from '../../../hooks/useStore';
 import { Box } from '../../objects/Box';
 import FlatClass from '../../utils/constructorGeometry';
 import { SolidBody } from '../../utils/SolidBody';
 
 interface IFlatRelativeSpace {
     children: Array<React.ReactElement>
-    // position: [number, number, number]
 }
 
 const F = new FlatClass(

@@ -1,8 +1,4 @@
-import { Html } from '@react-three/drei';
 import React from 'react';
-import { Box } from '../objects/Box';
-import { FlyingLightBall } from '../objects/FlyingLightBall';
-import { NeonLight } from '../objects/NeonLight';
 
 const _OutsideWorld: React.FunctionComponent = () => {
     return <group position={[0, 2, -10]}>

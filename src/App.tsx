@@ -1,4 +1,3 @@
-import { DepthOfField, EffectComposer } from '@react-three/postprocessing';
 import { NotificationManager } from './NotificationManager';
 import { Routing } from './Routing';
 import { TextPage } from './TextPages';

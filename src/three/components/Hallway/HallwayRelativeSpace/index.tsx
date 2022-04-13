@@ -1,13 +1,10 @@
 import React from 'react';
-import { useInterval } from '../../../hooks/useInterval';
 import { Box } from '../../objects/Box';
 import FlatClass from '../../utils/constructorGeometry';
 import { SolidBody } from '../../utils/SolidBody';
 
-
 interface IHallwayRelativeSpace {
     children: Array<React.ReactElement>
-    // position: [number, number, number]
 }
 
 const H = new FlatClass(

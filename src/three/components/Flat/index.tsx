@@ -8,15 +8,11 @@ import SciFiDoor from './SciFiDoor';
 import Fridge from './Fridge';
 import FridgeClosed from './FridgeClosed';
 import SeparatorWall from './SeparatorWall';
-import { useTemporarySubtitle } from '../../hooks/useTemporarySybtitle';
 import Moka from './Moka';
 import { PlayerVelocity } from '../PlayerVelocity';
 import HeavyDesk from './HeavyDesk';
 import { SolidBody } from '../utils/SolidBody';
 import { FlatRelativeSpace } from './FlatRelativeSpace';
-import { NavigationZone } from '../NavigationZone';
-import { useStore } from '../../hooks/useStore';
-import { useSoundEffect } from '../../hooks/useSoundEffect';
 import { DEBUG } from '../../../App';
 import { NeonLight } from '../objects/NeonLight';
 interface IFlatProps {
@@ -27,27 +23,11 @@ const _Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) => {
 
     const P = startingPosition && Object.values(startingPosition)
 
-    const tmpSubtitle = useTemporarySubtitle()
-
-    const { mainTitle } = useStore();
-
-    // const { soundObject, soundOn } = useSoundEffect('/assets/sounds/impactMetal_001.ogg');
-
-    // const handleSciFiDoorEffect = () => {
-    //     if (mainTitle !== 'Contact') return;
-    //     tmpSubtitle('This door is locked.', 2000);
-    //     soundOn();
-    // };
-
-
     return <group position={[0, 0, 0]}>
-        {/* {soundObject} */}
         <Lights />
-
         <FlatRelativeSpace>
             <NeonLight length={4} position={[8, 4, 2]} rotation={[Math.PI / 2, 0, 0] as any} color={'violet'} />
             <NeonLight length={8} position={[4, 4, 0]} rotation={[0, 0, Math.PI / 2] as any} color={'violet'} />
-
             <SolidBody dimensions={[2, 1.5, 2]} position={[4, 0, 3]}>
                 <HeavyDesk />
             </SolidBody>
@@ -69,7 +49,6 @@ const _Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) => {
             <Plane dimensions={[12, 0, 12]} position={[0, 0, 0]} />
             <Gibson position={[7.8, 0.7, 3]} scale={0.2} rotation={[1.6, -0.25, 4.7]} />
             <Moka position={[5.5, 1.57, 3.5]} scale={0.05} rotation={[0, 500, 0]} />
-            {/* <NavigationZone position={[0, 1, 12]} dimensions={[12, 6, 0.1]} route={"Email"} debug /> */}
         </FlatRelativeSpace>
     </group>
 }
