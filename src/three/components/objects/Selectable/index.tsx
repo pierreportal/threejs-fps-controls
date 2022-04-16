@@ -6,12 +6,13 @@ interface IOwnProps {
     children: React.ReactElement,
     callback: Function,
     tip?: string,
+    userInstructionTip?: string,
     restrictedArea?: string,
 }
 
-export const Selectable: React.FunctionComponent<IOwnProps> = ({ children, callback, tip, restrictedArea }) => {
+export const Selectable: React.FunctionComponent<IOwnProps> = ({ children, callback, tip, restrictedArea, userInstructionTip }) => {
 
-    const { setSubtitle, mainTitle } = useStore();
+    const { setSubtitle, setUserInstruction, mainTitle } = useStore();
     const [isHovered, setIsHovered] = React.useState<any | null>(null);
 
     const handleHover = (a: any) => setIsHovered(a);
@@ -27,11 +28,17 @@ export const Selectable: React.FunctionComponent<IOwnProps> = ({ children, callb
             if (tip) {
                 setSubtitle(tip);
             }
+            if (userInstructionTip) {
+                setUserInstruction(userInstructionTip)
+            }
 
         } else {
             document.getElementById('pointer')?.classList.remove('active');
             if (tip) {
                 setSubtitle(null)
+            }
+            if (userInstructionTip) {
+                setUserInstruction(null)
             }
         }
     }, [isHovered, setSubtitle, tip])

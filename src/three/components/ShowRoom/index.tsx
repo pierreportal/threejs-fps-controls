@@ -6,6 +6,7 @@ import { FlyingLightBall } from '../objects/FlyingLightBall';
 import { SolidBody } from '../utils/SolidBody';
 import { ArtWork } from './ArtWork';
 import Pupitre from './ArtWork/Pupitre';
+import { MolecularSynth } from './ArtWork/scupltures/MolecularSynth';
 import SculpTest from './ArtWork/scupltures/SculpTest';
 import SculpTestB from './ArtWork/scupltures/SculpTestB';
 import SculpTestC from './ArtWork/scupltures/SculpTestC';
@@ -63,6 +64,11 @@ const _ShowRoom: React.FunctionComponent = () => {
 
             <ArtWork position={[5, 0, 1]} pupitreDiameter={0.5} pupitreHeight={1} >
                 <SculpTest scale={1} />
+            </ArtWork>
+
+
+            <ArtWork position={[6, 0, 4]} pupitreDiameter={0.5} pupitreHeight={1} >
+                <MolecularSynth scale={0.5} />
             </ArtWork>
 
             {/* <SciFiDoor onClick={() => false} scale={2} rotation={[0, Math.PI, 0]} position={[8.5, 0, 17]} /> */}

@@ -11,6 +11,7 @@ import { getUserPositionFromRoute } from '../hooks/usePlayerRouting';
 import { useStore } from '../hooks/useStore';
 import { DEBUG } from '../../App'
 import { OutsideWorld } from '../components/OutsideWorld';
+import { AudioSource } from '../components/AudioSource';
 interface IShip {
     location: string;
 }
@@ -24,7 +25,9 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
     const startingPosition = !navigateByPlayerMoves && getUserPositionFromRoute(location);
 
     const complex = <>
-        <Flat startingPosition={startingPosition} />
+        <AudioSource path="/assets/sounds/drone1.mp3" play={!!enableControls} >
+            <Flat startingPosition={startingPosition} />
+        </AudioSource>
         <ShowRoom />
         <Hallway />
     </>;

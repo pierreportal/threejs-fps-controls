@@ -8,19 +8,19 @@ function Sound({ url, play }: any) {
     const [listener] = React.useState(() => new AudioListener())
     const buffer = useLoader(AudioLoader, url)
 
-    if (play) {
-        document.addEventListener('click', () => (sound.current as any).play())
-    } else {
-        document.addEventListener('click', () => (sound.current as any).pause())
-    }
 
     React.useEffect(() => {
         (sound.current as any).setBuffer(buffer);
         (sound.current as any).setRefDistance(1);
         (sound.current as any).setLoop(true);
         camera.add(listener);
+        if (play) {
+            (sound.current as any)?.play()
+        } else {
+            (sound.current as any)?.pause()
+        }
         return () => camera.remove(listener) as any;
-    }, [])
+    }, [play, camera, buffer, listener]);
 
     return <positionalAudio ref={sound} args={[listener]} />
 }

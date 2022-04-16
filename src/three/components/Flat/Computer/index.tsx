@@ -2,6 +2,7 @@ import { useBox } from '@react-three/cannon';
 import React from 'react';
 import { useLoader } from 'react-three-fiber';
 import { Euler, TextureLoader } from 'three';
+import { UserInputMode } from '../../../hooks/useLockControls';
 import { useStore } from '../../../hooks/useStore';
 import { Selectable } from '../../objects/Selectable';
 import MacKeyboard from './models/MacKeyboard';
@@ -11,8 +12,12 @@ interface IComputerProps {
     rotation: Euler;
 }
 
+const EMAIL = 'pierreportal.mac@gmail.com';
+const SUBJECT = 'contact via portfolio';
+
+
 export const _Computer: React.FunctionComponent<IComputerProps> = ({ position, rotation }) => {
-    const textureScreen = useLoader(TextureLoader, '/assets/images/screenTest.png')
+    const textureScreen = useLoader(TextureLoader, '/assets/images/screenTest.png');
 
     const [ref] = useBox(() => (
         {
@@ -22,16 +27,16 @@ export const _Computer: React.FunctionComponent<IComputerProps> = ({ position, r
         }
     ));
 
-    const { setEnableControls, setDisplayTerminalWindow } = useStore()
+    const { setUserInputMode, setFreePointerEyesOpen } = useStore()
 
     const displayScreenTerminal = () => {
+        setFreePointerEyesOpen(true);
         document.exitPointerLock();
-        setEnableControls(false);
-        setDisplayTerminalWindow(true)
+        setUserInputMode(UserInputMode.Mail);
     }
 
     return <group ref={ref} position={position}>
-        <Selectable callback={() => false} tip={"I am a software engineer"} restrictedArea={"About"}>
+        <Selectable userInstructionTip={"click to visit Github"} callback={() => window.open('https://github.com/pierreportal', "_blank")} tip={"I am a software engineer"} restrictedArea={"About"}>
             <mesh>
                 <boxBufferGeometry attach="geometry" args={[.6, .6, 0.00001]} />
                 <meshPhongMaterial

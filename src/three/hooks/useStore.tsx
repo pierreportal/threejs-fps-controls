@@ -1,4 +1,5 @@
 import create from 'zustand';
+import { UserInputMode } from './useLockControls';
 
 interface ITooltip {
     heading: string
@@ -18,6 +19,18 @@ export interface INotification {
 }
 
 export const useStore = create((set: any) => ({
+
+    userInputMode: null as UserInputMode | null,
+
+    setUserInputMode: (mode: UserInputMode | null) => {
+        return set((state: any) => state.userInputMode = mode);
+    },
+
+    freePointerEyesOpen: false,
+
+    setFreePointerEyesOpen: (mode: boolean) => {
+        return set((state: any) => state.freePointerEyesOpen = mode);
+    },
 
     pointingObjectForDistance: null as any,
 
@@ -41,6 +54,18 @@ export const useStore = create((set: any) => ({
 
     setTooltip: (tolltip: ITooltip | null) => {
         return set((state: any) => state.tooltip = tolltip);
+    },
+
+    userInstruction: null as ITooltip | null,
+
+    setUserInstruction: (userInstruction: string | null) => {
+        if (userInstruction) {
+            document.getElementById('user-instruction')!.classList.add('visible');
+            return set((state: any) => state.userInstruction = userInstruction);
+        } else {
+            document.getElementById('user-instruction')!.classList.remove('visible');
+            return set((state: any) => state.userInstruction = null);
+        }
     },
 
     notification: null as INotification | null,

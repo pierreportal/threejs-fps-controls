@@ -20,7 +20,7 @@ let pY: any = null;
 const SPEED = 5;
 const HEAD_BANG_LEVEL = 0.2;
 
-class InputController {
+export class InputController {
 
     public current_: IcurrentInputController | undefined;
     public previous_: any;
