@@ -2,8 +2,6 @@ import React from 'react';
 import { Row, Button } from '../UIkit';
 import { UserInputMail, ErrorMessage } from './styles';
 import emailjs from '@emailjs/browser';
-// require('dotenv').config()
-const { MAIL_PUBLIC_KEY, MAIL_SERVICE_ID, MAIL_TEMPLATE_ID } = process.env;
 
 interface IMailScreenProps {
     quit: (event: any) => void;
