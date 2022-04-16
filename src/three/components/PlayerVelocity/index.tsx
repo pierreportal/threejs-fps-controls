@@ -17,7 +17,6 @@ const ctr = new FirstPersonCamera();
 export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position }) => {
 
     const { enableControls } = useStore();
-
     const { camera } = useThree();
 
     const cameraRef = React.useRef(camera);
@@ -51,7 +50,9 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
 
     usePlayerRouting(playerRef.current?.position);
 
+
     api.position.subscribe((p: Triplet) => {
+
         playerRef.current?.position.set(...p)
     });
 
@@ -79,6 +80,7 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
     });
 
     return <mesh ref={playerRef}>
+        {/* {generic} */}
         <positionalAudio ref={sound} args={[listener]} />
     </mesh>
 };

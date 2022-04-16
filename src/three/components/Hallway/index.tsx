@@ -3,6 +3,7 @@ import { Plane } from '../objects/Plane';
 import { HallwayRelativeSpace } from './HallwayRelativeSpace';
 
 const _Hallway: React.FunctionComponent = () => {
+
     return <group>
         <HallwayRelativeSpace>
             <Plane emissive={'coral'} emissiveIntensity={0.1} dimensions={[4, 0, 13]} position={[0, 0, 1.5]} />

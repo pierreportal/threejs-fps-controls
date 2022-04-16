@@ -20,6 +20,12 @@ export interface INotification {
 
 export const useStore = create((set: any) => ({
 
+    playGeneric: false,
+
+    setPlayGeneric: (mode: boolean) => {
+        return set((state: any) => state.playGeneric = mode);
+    },
+
     userInputMode: null as UserInputMode | null,
 
     setUserInputMode: (mode: UserInputMode | null) => {
