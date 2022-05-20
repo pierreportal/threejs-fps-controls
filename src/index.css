@@ -73,6 +73,15 @@ code {
   opacity: 1;
 }
 
+#press-i-for-info {
+  position: absolute;
+  z-index: 9;
+  color: white;
+  mix-blend-mode: difference;
+  top: 100px;
+  left: 40px
+}
+
 #user-instruction {
   opacity: 0;
   z-index: 9;

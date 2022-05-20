@@ -34,7 +34,6 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
         }
     ));
 
-
     React.useEffect(() => {
         (sound.current as any).setBuffer(buffer);
         (sound.current as any).setRefDistance(0.1);
@@ -43,7 +42,6 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
         return () => {
             camera.remove(listener) as any;
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     ctr.soundEffect.walk = sound.current;
@@ -68,19 +66,10 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
             cameraRef.current?.position.y || PLAYER_HEIGHT - 0.3 as number,
             playerRef.current?.position.z as number
         );
-        // if (!enableControls) {
-        //     cameraRef.current?.rotation.set(
-        //         -Math.PI / 2 - 50,
-        //         0,
-        //         0
-        //     );
-        // }
         api.rotation.set(0, 0, 0);
-        // api.applyForce([0, 0, 0], [1, 1, 1])
     });
 
     return <mesh ref={playerRef}>
-        {/* {generic} */}
         <positionalAudio ref={sound} args={[listener]} />
     </mesh>
 };

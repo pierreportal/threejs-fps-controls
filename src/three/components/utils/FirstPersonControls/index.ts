@@ -81,16 +81,20 @@ export class InputController {
 
         const { movementX, movementY } = event;
 
+        const middleX = window.innerWidth / 2;
+        const middleY = window.innerHeight / 2;
+
         if (pX === null && pY === null) {
-            pX = event.pageX + this.diffCursor[0];
-            pY = event.pageY + this.diffCursor[1];
+            pX = middleX // event.pageX - offsetX;
+            pY = middleY // event.pageY - offsetY;
         };
 
         pX += movementX * 0.5;
         pY += movementY * 0.5;
 
-        this.current_!.mouseX = pX - window.innerWidth / 2;
-        this.current_!.mouseY = pY - window.innerHeight / 2;
+        this.current_!.mouseX = pX //- window.innerWidth / 2;
+        this.current_!.mouseY = pY //- window.innerHeight / 2;
+
         if (this.previous_ === null) {
             this.previous_ = { ...this.current_ };
         };
@@ -196,8 +200,10 @@ export class FirstPersonCamera {
     }
     updateRotation_() {
         if (this.input_.previous_?.mouseX !== this.input_.current_?.mouseX) {
+
             const xh = this.input_.current_!.mouseXDelta / window.innerWidth;
             const yh = this.input_.current_!.mouseYDelta / window.innerHeight;
+
 
             this.phi_ += -xh * 5;
             this.theta_ = clamp(this.theta_ + -yh * 5, -Math.PI / 3, Math.PI / 3);

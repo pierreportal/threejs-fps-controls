@@ -48,6 +48,7 @@ export const Selectable: React.FunctionComponent<IOwnProps> = ({ children, callb
     };
 
     const selectableChild = React.cloneElement(children, {
+        ...children.props,
         onPointerEnter: handleHover,
         onPointerLeave: handleLeave,
         onClick: handleClick,

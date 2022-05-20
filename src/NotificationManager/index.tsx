@@ -31,7 +31,7 @@ const UserInputScreen: React.FunctionComponent<IUserInputScreenProps> = ({ mode 
 
 export const NotificationManager: React.FunctionComponent<INotificationManagerProps> = ({ children }) => {
 
-    const { notification, subtitle, tooltip, displayTerminalWindow, mainTitle, secondHeading, userInstruction, userInputMode, playGeneric } = useStore();
+    const { notification, subtitle, tooltip, mainTitle, secondHeading, userInstruction, userInputMode, playGeneric } = useStore();
 
     const s = userInputMode && <div id="user-input-screen">
         <UserInputScreen mode={userInputMode} />
@@ -41,7 +41,6 @@ export const NotificationManager: React.FunctionComponent<INotificationManagerPr
         {s}
         {playGeneric && <h1>Thanks here comes generic, credits and so on...</h1>}
         {notification && ""}
-        {displayTerminalWindow && <div id="terminal-window"></div>}
         {tooltip && <TextTooltip heading={tooltip.heading} text={tooltip.text} position={tooltip.position} />}
         <div id="subtitle">{subtitle}</div>
         <div id="user-instruction">{userInstruction}</div>

@@ -32,11 +32,12 @@ export const usePlayerRouting = (playerPosition: any) => {
     useInterval(() => {
         const currentPage = mapPosToRoute(playerPosition);
         if (playerPosition.z > 6) {
+            setMainTitle('')
             setPlayGeneric(true);
         } else {
             setPlayGeneric(false);
         }
-        if (!navigationZone && currentPage && mainTitle !== currentPage) {
+        if (!navigationZone && currentPage && mainTitle !== currentPage && playerPosition.z < 6) {
             setNavigateByPlayerMoves(true)
             setMainTitle(currentPage);
         }

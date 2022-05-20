@@ -44,12 +44,6 @@ export const useStore = create((set: any) => ({
         return set((state: any) => state.pointingObjectForDistance = position);
     },
 
-    displayTerminalWindow: false,
-
-    setDisplayTerminalWindow: (mode: boolean) => {
-        return set((state: any) => state.displayTerminalWindow = mode);
-    },
-
     enableControls: false as false | Array<number>,
 
     setEnableControls: (mode: false | Array<number>) => {

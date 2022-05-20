@@ -15,6 +15,7 @@ import { SolidBody } from '../utils/SolidBody';
 import { FlatRelativeSpace } from './FlatRelativeSpace';
 import { DEBUG } from '../../../App';
 import { NeonLight } from '../objects/NeonLight';
+import { Selectable } from '../objects/Selectable';
 interface IFlatProps {
     startingPosition: false | any
 }
@@ -47,7 +48,9 @@ const _Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) => {
             <FridgeClosed position={[0.6, 0, 9.5]} rotation={[0, -Math.PI, 0]} />
             <FridgeClosed position={[0.6, 0, 8.5]} rotation={[0, -Math.PI, 0]} />
             <Plane dimensions={[12, 0, 12]} position={[0, 0, 0]} />
-            <Gibson position={[7.8, 0.7, 3]} scale={0.2} rotation={[1.6, -0.25, 4.7]} />
+            <Selectable tip="I am a professional musician" callback={() => false}>
+                <Gibson position={[1.8, 0.7, -3]} scale={0.2} rotation={[1.6, -0.25, 4.7]} />
+            </Selectable>
             <Moka position={[5.5, 1.57, 3.5]} scale={0.05} rotation={[0, 500, 0]} />
         </FlatRelativeSpace>
     </group>
