@@ -25,8 +25,6 @@ export const Generic: React.FunctionComponent = () => {
 
     const [currentStep, setCurrentStep] = React.useState<number>(0);
 
-    console.log(steps[currentStep].props.children, typeof steps[currentStep].props.children)
-
     useInterval(() => setCurrentStep((currentStep + 1) % steps.length), parse2Text(steps[currentStep].props.children).length * 70)
 
     return <GenericScreen step={currentStep}>{steps[currentStep]}</GenericScreen>;

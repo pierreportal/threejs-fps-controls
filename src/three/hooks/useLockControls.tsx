@@ -3,7 +3,8 @@ import { useStore } from './useStore';
 
 
 export enum UserInputMode {
-    Mail = 'Mail'
+    Mail = 'Mail',
+    CLI = 'CLI',
 }
 
 

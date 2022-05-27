@@ -9,34 +9,34 @@ const getPos = (step: number) => {
         case 0:
             return `
                 top: 50px;
-                left: 50px
+                left: 50px;
             `
         case 1:
             return `
                 bottom: 50px;
                 right: 50px;
-                text-align: right
+                text-align: right;
             `
         case 2:
             return `
                 top: 50px;
                 right: 50px;
-                text-align: right
+                text-align: right;
             `
         case 3:
             return `
                 bottom: 50px;
-                left: 50px
+                left: 50px;
             `
         default:
             return `
                 top: 50px;
-                left: 50px
+                left: 50px;
             `
     }
 }
 export const GenericScreen = styled.div`
-    top:0, 
+    top:0;
     left:0;
     width:100vw;
     height:100vh;

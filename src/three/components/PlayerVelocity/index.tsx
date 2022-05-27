@@ -5,6 +5,7 @@ import { usePlayerRouting } from '../../hooks/usePlayerRouting';
 import { useStore } from '../../hooks/useStore';
 import { FirstPersonCamera } from '../utils/FirstPersonControls';
 import { AudioListener, AudioLoader } from 'three';
+import { useRayCasting } from '../../hooks/useRayCasting';
 
 const PLAYER_HEIGHT = 1.8;
 
@@ -16,7 +17,7 @@ const ctr = new FirstPersonCamera();
 
 export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position }) => {
 
-    const { enableControls } = useStore();
+    const { enableControls, setCamera } = useStore();
     const { camera } = useThree();
 
     const cameraRef = React.useRef(camera);
@@ -35,6 +36,7 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
     ));
 
     React.useEffect(() => {
+        setCamera(camera);
         (sound.current as any).setBuffer(buffer);
         (sound.current as any).setRefDistance(0.1);
         (sound.current as any).setLoop(true);
@@ -67,7 +69,10 @@ export const PlayerVelocity: React.FunctionComponent<IOwnProps> = ({ position })
             playerRef.current?.position.z as number
         );
         api.rotation.set(0, 0, 0);
+
     });
+
+    // useRayCasting(camera, [])
 
     return <mesh ref={playerRef}>
         <positionalAudio ref={sound} args={[listener]} />

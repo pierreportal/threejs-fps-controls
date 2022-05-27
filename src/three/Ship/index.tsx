@@ -10,6 +10,7 @@ import { useLockControls } from '../hooks/useLockControls';
 import { getUserPositionFromRoute } from '../hooks/usePlayerRouting';
 import { useStore } from '../hooks/useStore';
 import { DEBUG } from '../../App'
+import { Instructions } from './styles';
 import { OutsideWorld } from '../components/OutsideWorld';
 import { AudioSource } from '../components/AudioSource';
 interface IShip {
@@ -37,7 +38,12 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
             progress === 100 &&
             (
                 enableControls
-                    ? pointer
+                    ? <>
+                        {pointer}
+                        <Instructions>
+                            [w][a][s][d] to move
+                        </Instructions>
+                    </>
                     : !DEBUG && <>
                         <button id="play-button" onClick={controlOn}>Come in</button>
                     </>

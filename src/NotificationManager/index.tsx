@@ -1,8 +1,10 @@
 import React from 'react';
 import { MailScreen } from '../MailScreen';
+import { CLIScreen } from '../CLIScreen';
 import { TextTooltip } from '../three/components/TextTooltip';
 import { useLockControls, UserInputMode } from '../three/hooks/useLockControls';
 import { useStore } from '../three/hooks/useStore';
+import { Generic } from '../Generic';
 
 interface INotificationManagerProps {
     children: React.ReactElement | Array<React.ReactElement | false>
@@ -24,6 +26,8 @@ const UserInputScreen: React.FunctionComponent<IUserInputScreenProps> = ({ mode 
     switch (mode) {
         case UserInputMode.Mail:
             return <MailScreen quit={handleCancel} />
+        case UserInputMode.CLI:
+            return <CLIScreen quit={handleCancel} />
         default:
             return <></>
     }
@@ -39,7 +43,7 @@ export const NotificationManager: React.FunctionComponent<INotificationManagerPr
 
     return <>
         {s}
-        {playGeneric && <h1>Thanks here comes generic, credits and so on...</h1>}
+        {playGeneric && <Generic />}
         {notification && ""}
         {tooltip && <TextTooltip heading={tooltip.heading} text={tooltip.text} position={tooltip.position} />}
         <div id="subtitle">{subtitle}</div>

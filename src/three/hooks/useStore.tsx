@@ -20,6 +20,11 @@ export interface INotification {
 
 export const useStore = create((set: any) => ({
 
+    camera: null,
+    setCamera: (camera: any) => {
+        return set((state: any) => state.camera = camera);
+    },
+
     playGeneric: false,
 
     setPlayGeneric: (mode: boolean) => {
