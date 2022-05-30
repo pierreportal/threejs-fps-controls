@@ -22,7 +22,7 @@ export const mapPosToRoute = (pos: any) => {
 }
 
 export const usePlayerRouting = (playerPosition: any) => {
-    const { setMainTitle, setNavigateByPlayerMoves, setPlayGeneric, mainTitle, navigationZone } = useStore();
+    const { enableControls, setMainTitle, setNavigateByPlayerMoves, setPlayGeneric, mainTitle, navigationZone } = useStore();
 
     React.useEffect(() => {
         document.title = `Pierre Portal - ${mainTitle}`;
@@ -39,7 +39,7 @@ export const usePlayerRouting = (playerPosition: any) => {
         }
         if (!navigationZone && currentPage && mainTitle !== currentPage && playerPosition.z < 6) {
             setNavigateByPlayerMoves(true)
-            setMainTitle(currentPage);
+            enableControls && setMainTitle(currentPage);
         }
     }, 500);
 };

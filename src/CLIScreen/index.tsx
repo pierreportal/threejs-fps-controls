@@ -1,6 +1,6 @@
 import React from 'react';
 import { CLI, UnknownCMD, Prompt, QuitScreenButton } from './styles';
-import { ls, cd, openFile } from './cliCtr';
+import { ls, cd } from './cliCtr';
 
 interface ICLIScreenProps {
     quit: (event: any) => void;
@@ -13,7 +13,7 @@ const allowedCMD = [...keyWords, ...navCmds];
 
 export const CLIScreen: React.FunctionComponent<ICLIScreenProps> = ({ quit }) => {
 
-    const [location, setLocation] = React.useState<string>('~/User/pierre.portal');
+    const [location, setLocation] = React.useState<string>('root/Users/pierre_portal');
 
     const [inputValue, setInputValue] = React.useState<string>('');
 
@@ -27,16 +27,27 @@ export const CLIScreen: React.FunctionComponent<ICLIScreenProps> = ({ quit }) =>
 
     React.useEffect(() => (cliInput?.current as any)?.focus(), [cliInput]);
 
-    const execute = (cmd: string, event: any) => {
-        switch (cmd) {
+    const enterCmd = (loc: string, cmd: string) => {
+        const splittedCmd = cmd.split(' ');
+        const [command, ...options] = splittedCmd;
+        switch (command) {
             case 'clear':
                 setHistory([]);
                 break;
             case 'pwd':
                 setHistory([...history, { cmd: location, fb: 'ok' }]);
                 break;
+            case 'help':
+                return 'okkkkkkkk help is here'
+            case 'ls':
+                const listOfContent = ls(loc);
+                console.log(listOfContent);
+                break;
+            case 'cd':
+                const newLoc = cd(loc, options[0]);
+                console.log('newLoc:', newLoc);
         }
-    };
+    }
 
     const handleKeys = (event: any) => {
         const { key, ctrlKey } = event;
@@ -51,10 +62,6 @@ export const CLIScreen: React.FunctionComponent<ICLIScreenProps> = ({ quit }) =>
             }
         };
 
-        if (inputValue === 'cd ') {
-            cd(location)
-        };
-
         switch (key) {
             case 'Enter':
                 if (!allowedCMD.includes(value)) {
@@ -62,7 +69,7 @@ export const CLIScreen: React.FunctionComponent<ICLIScreenProps> = ({ quit }) =>
 
                 } else {
                     setHistory([...history, { cmd: value, fb: 'ok' }]);
-                    execute(value, event);
+                    enterCmd(location, value);
                 }
                 setInputValue('');
                 break

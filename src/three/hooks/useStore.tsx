@@ -79,7 +79,7 @@ export const useStore = create((set: any) => ({
         return set((state: any) => state.notification = notification);
     },
 
-    mainTitle: 'About' as string,
+    mainTitle: '' as string,
 
     setMainTitle: (mainTitle: string) => {
         return set((state: any) => state.mainTitle = mainTitle);

@@ -112,18 +112,6 @@ code {
   margin: 0
 }
 
-#play-button {
-  cursor: pointer;
-  background: none;
-  border: none;
-  color: rgb(255, 255, 255);
-  font-weight: bold;
-  position: absolute;
-  z-index: 9;
-  font-size: 20px;
-  border-bottom: solid 2px rgb(255, 255, 255);
-  padding: 5px 0
-}
 
 #terminal-window {
   background-color: #191926;

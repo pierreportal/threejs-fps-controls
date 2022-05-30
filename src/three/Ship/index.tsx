@@ -10,7 +10,7 @@ import { useLockControls } from '../hooks/useLockControls';
 import { getUserPositionFromRoute } from '../hooks/usePlayerRouting';
 import { useStore } from '../hooks/useStore';
 import { DEBUG } from '../../App'
-import { Instructions } from './styles';
+import { Instructions, ProgressRingCircle, LoadingPage, ComeInButton } from './styles';
 import { OutsideWorld } from '../components/OutsideWorld';
 import { AudioSource } from '../components/AudioSource';
 interface IShip {
@@ -18,7 +18,7 @@ interface IShip {
 }
 export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
 
-    const { progress } = useProgress()
+    const { progress } = useProgress();
     const { enableControls, navigateByPlayerMoves } = useStore();
     const { controlOn } = useLockControls()
     const pointer = <div id="pointer"></div>;
@@ -45,13 +45,32 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
                         </Instructions>
                     </>
                     : !DEBUG && <>
-                        <button id="play-button" onClick={controlOn}>Come in</button>
+                        <ComeInButton onClick={controlOn}>Come in</ComeInButton>
                     </>
             )
         }
 
         <Universe>
-            <Suspense fallback={<Html center style={{ color: 'white' }}>{progress.toFixed(0)}%</Html>}>
+            <Suspense fallback={
+                <Html center style={{ color: 'white' }}>
+                    <LoadingPage>
+                        {progress.toFixed(0)}%
+                        <ProgressRingCircle
+                            width="120"
+                            height="120"
+                            radius={52}
+                            prog={(52 * 2 * Math.PI) - (+progress.toFixed(0) / 100) * (52 * 2 * Math.PI)}
+                        >
+                            <circle
+                                strokeDasharray={`${(52 * 2 * Math.PI)} ${(52 * 2 * Math.PI)}`}
+                                strokeDashoffset={(52 * 2 * Math.PI) - (+progress.toFixed(0) / 100) * (52 * 2 * Math.PI)}
+                                cx="60"
+                                cy="60" />
+                        </ProgressRingCircle>
+                    </LoadingPage>
+                </Html>
+            }>
+
                 <OutsideWorld />
                 {DEBUG ? (
                     <>

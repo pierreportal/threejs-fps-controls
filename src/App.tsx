@@ -24,7 +24,7 @@ function App() {
   }
   return (
     <NotificationManager>
-      {!enableControls && <TextPage section={mainTitle} />}
+      {/* {!enableControls && <TextPage section={mainTitle} />} */}
       <div id="nap"></div>
       <Routing />
     </NotificationManager>

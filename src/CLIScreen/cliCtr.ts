@@ -57,9 +57,22 @@ export const cd: any = (loc: string, path?: string) => {
     return !error && loc;
 };
 
-export const openFile = (loc: string, file: string) => {
+const openFile = (loc: string, file: string) => {
     return (
         typeof exploreWorkingDirectory(loc).locTree[file] === 'string' &&
         exploreWorkingDirectory(loc).locTree[file]
     );
 };
+
+// export const enterCmd = (loc: string, cmd: string) => {
+//     const splittedCmd = cmd.split(' ');
+//     const [command, ...options] = splittedCmd;
+//     switch (command) {
+//         case 'help':
+//             return 'okkkkkkkk help is here'
+//         case 'ls':
+//             return ls(loc);
+//         case 'cd':
+//             return cd(loc, options[0]);
+//     }
+// }
