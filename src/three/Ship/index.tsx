@@ -23,12 +23,17 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
     const { controlOn } = useLockControls()
     const pointer = <div id="pointer"></div>;
 
+
+
     const startingPosition = !navigateByPlayerMoves && getUserPositionFromRoute(location);
 
     const complex = <>
         <AudioSource path="/assets/sounds/drone1.mp3" play={!!enableControls} >
+            {/* <AudioSource path="/assets/sounds/room.mp3" play={!!enableControls} > */}
             <Flat startingPosition={startingPosition} />
+            {/* </AudioSource> */}
         </AudioSource>
+
         <ShowRoom />
         <Hallway />
     </>;

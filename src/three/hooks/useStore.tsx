@@ -20,6 +20,11 @@ export interface INotification {
 
 export const useStore = create((set: any) => ({
 
+    music: null,
+    setMusic: (music: any) => {
+        return set((state: any) => state.music = music);
+    },
+
     camera: null,
     setCamera: (camera: any) => {
         return set((state: any) => state.camera = camera);

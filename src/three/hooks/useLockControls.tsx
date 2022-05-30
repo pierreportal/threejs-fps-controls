@@ -9,7 +9,7 @@ export enum UserInputMode {
 
 
 export const useLockControls = () => {
-    const { setEnableControls, setUserInputMode, setFreePointerEyesOpen, freePointerEyesOpen } = useStore();
+    const { setEnableControls, setUserInputMode, setFreePointerEyesOpen, freePointerEyesOpen, music } = useStore();
 
     const controlOn = (event: any) => {
         const { clientX, clientY } = event;
@@ -18,21 +18,18 @@ export const useLockControls = () => {
         const diff = [midScreen[0] - clientX, midScreen[1] - clientY];
         document.getElementsByTagName('canvas')[0].requestPointerLock();
         setEnableControls(diff);
+        (music as any)?.play();
     };
 
-    const keyCheck = (event: KeyboardEvent, key: string, callback: Function) => {
-        if (event.key === key) {
-            setFreePointerEyesOpen(false);
-            setUserInputMode(null);
-            callback(event);
+    const keyCheck = (event: KeyboardEvent) => {
+        if (event.key === 'm' && music) {
+            (music as any).volume = (music as any)?.volume === 0 ? 0.2 : 0;
         }
     };
 
     React.useEffect(() => {
-        if (freePointerEyesOpen) {
-            // document.addEventListener('keydown', (event: KeyboardEvent) => keyCheck(event, 's', controlOn))
-        }
-    }, [freePointerEyesOpen])
+        document.addEventListener('keydown', (event: any) => keyCheck(event));
+    }, [music])
 
 
     const toggleControl = () => {
