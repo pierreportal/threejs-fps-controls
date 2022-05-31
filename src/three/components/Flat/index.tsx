@@ -16,6 +16,7 @@ import { FlatRelativeSpace } from './FlatRelativeSpace';
 import { DEBUG } from '../../../App';
 import { NeonLight } from '../objects/NeonLight';
 import { Selectable } from '../objects/Selectable';
+import { ContactPadScreen } from './ContactPadScreen';
 interface IFlatProps {
     startingPosition: false | any
 }
@@ -39,6 +40,11 @@ const _Flat: React.FunctionComponent<IFlatProps> = ({ startingPosition }) => {
                 <SeparatorWall scale={1.65} rotation={[0, -Math.PI / 2, 0]} />
             </SolidBody>
             <Computer position={[5, 2.05, 4.5]} rotation={[0, Math.PI - 50, 0] as any} />
+
+            <Selectable tip="I can leave a message on this device." callback={() => false}>
+                <ContactPadScreen position={[-2, 2, 5.8]} rotation={[0, Math.PI, 0] as any} />
+            </Selectable>
+
             <Painting dimensions={[.5, .7, .05]} photo={'bjork-photo.png'} position={[11.7, 2, 6]} rotation={[0, Math.PI / 2, 0]} />
             {!DEBUG ? <PlayerVelocity position={P || [6, 0, 6]} /> : <></>}
             <SciFiDoor scale={1.5} rotation={[0, Math.PI, 0]} position={[6, 0, 12.2]} />
