@@ -30,11 +30,11 @@ export const _Computer: React.FunctionComponent<IComputerProps> = ({ position, r
 
     const { setUserInputMode, setFreePointerEyesOpen } = useStore()
 
-    const displayScreenMail = () => {
-        setFreePointerEyesOpen(true);
-        document.exitPointerLock();
-        setUserInputMode(UserInputMode.Mail);
-    }
+    // const displayScreenMail = () => {
+    //     setFreePointerEyesOpen(true);
+    //     document.exitPointerLock();
+    //     setUserInputMode(UserInputMode.Mail);
+    // }
 
     const displayScreenTerminal = () => {
         setFreePointerEyesOpen(true);
@@ -55,7 +55,7 @@ export const _Computer: React.FunctionComponent<IComputerProps> = ({ position, r
                 />
             </mesh>
         </Selectable>
-        <Selectable callback={displayScreenMail} tip={"Can I type something ?"} restrictedArea={"About"}>
+        <Selectable callback={displayScreenTerminal} tip={"Can I type something ?"} restrictedArea={"About"}>
             <mesh>
                 <MacKeyboard rotation={rotation} scale={0.05} position={[0, - 0.5, 0.5]} />
             </mesh>
