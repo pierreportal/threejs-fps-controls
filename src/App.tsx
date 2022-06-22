@@ -34,6 +34,12 @@ function App() {
   }
   return (
     <NotificationManager>
+      <span style={{
+        position: 'absolute',
+        top: '10px',
+        color: 'blue',
+        zIndex: 9
+      }}>Note: This 3D environment is a work in progress prototype for my new personal website. Welcome home.</span>
       {/* {!enableControls && <TextPage section={mainTitle} />} */}
       <div id="nap"></div>
       <Routing />

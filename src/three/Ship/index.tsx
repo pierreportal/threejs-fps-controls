@@ -29,11 +29,8 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
 
     const complex = <>
         <AudioSource path="/assets/sounds/drone1.mp3" play={!!enableControls} >
-            {/* <AudioSource path="/assets/sounds/room.mp3" play={!!enableControls} > */}
             <Flat startingPosition={startingPosition} />
-            {/* </AudioSource> */}
         </AudioSource>
-
         <ShowRoom />
         <Hallway />
     </>;
