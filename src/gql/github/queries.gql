@@ -1,0 +1,28 @@
+{
+  user(login: "pierreportal") {
+    bio
+    avatarUrl(size: 100)
+    company
+    email
+    name
+    pinnedItems(last: 10) {
+      nodes {
+        ... on Repository {
+          id
+          name
+          url
+          object(expression: "master:README.md") {
+            ... on Blob {
+              text
+            }
+          }
+        }
+      }
+      totalCount
+    }
+    url
+  }
+  viewer {
+    login
+  }
+}
