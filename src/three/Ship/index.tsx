@@ -43,7 +43,18 @@ export const Ship: React.FunctionComponent<IShip> = ({ location }) => {
                     ? <>
                         {pointer}
                         <Instructions>
-                            [w][a][s][d] to move
+                            <span>
+                                <span>
+                                    [w][a][s][d] to move
+                                </span>
+                                {" - "}
+                                <span style={{ color: 'pink' }}>
+                                    [mouse] to look around
+                                </span>
+                            </span>
+                            <span>
+                                [m] to (un)mute music
+                            </span>
                         </Instructions>
                     </>
                     : !DEBUG && <>

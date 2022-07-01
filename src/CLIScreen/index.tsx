@@ -1,23 +1,25 @@
 import React from 'react';
-import { CLI, UnknownCMD, Prompt, QuitScreenButton } from './styles';
-import { ls, cd } from './cliCtr';
+import { CLI, UnknownCMD, Prompt, QuitScreenButton, PrintLine } from './styles';
+import { enterCmd } from './cliCtr';
 
 interface ICLIScreenProps {
     quit: (event: any) => void;
 }
 
-const keyWords = ['cd', 'ls', 'clear', 'pwd'];
-const navCmds = ['.', '..', '/', ''];
+interface ICLIPrint {
+	cmd: string
+	fb: string
+	output?: any
+}
 
-const allowedCMD = [...keyWords, ...navCmds];
 
 export const CLIScreen: React.FunctionComponent<ICLIScreenProps> = ({ quit }) => {
 
-    const [location, setLocation] = React.useState<string>('root/Users/pierre_portal');
+    const [location, setLocation] = React.useState<string>('~/Users/pierreportal');
 
     const [inputValue, setInputValue] = React.useState<string>('');
 
-    const [history, setHistory] = React.useState<Array<any>>([]);
+    const [history, setHistory] = React.useState<Array<ICLIPrint>>([]);
 
     const cliInput = React.useRef(null);
 
@@ -26,28 +28,6 @@ export const CLIScreen: React.FunctionComponent<ICLIScreenProps> = ({ quit }) =>
     const handleFocus = () => (cliInput?.current as any)?.focus();
 
     React.useEffect(() => (cliInput?.current as any)?.focus(), [cliInput]);
-
-    const enterCmd = (loc: string, cmd: string) => {
-        const splittedCmd = cmd.split(' ');
-        const [command, ...options] = splittedCmd;
-        switch (command) {
-            case 'clear':
-                setHistory([]);
-                break;
-            case 'pwd':
-                setHistory([...history, { cmd: location, fb: 'ok' }]);
-                break;
-            case 'help':
-                return 'okkkkkkkk help is here'
-            case 'ls':
-                const listOfContent = ls(loc);
-                console.log(listOfContent);
-                break;
-            case 'cd':
-                const newLoc = cd(loc, options[0]);
-                console.log('newLoc:', newLoc);
-        }
-    }
 
     const handleKeys = (event: any) => {
         const { key, ctrlKey } = event;
@@ -63,16 +43,9 @@ export const CLIScreen: React.FunctionComponent<ICLIScreenProps> = ({ quit }) =>
         };
 
         switch (key) {
-            case 'Enter':
-                if (!allowedCMD.includes(value)) {
-                    setHistory([...history, { cmd: value, fb: 'ok' }, { cmd: value, fb: 'unknown' }]);
-
-                } else {
-                    setHistory([...history, { cmd: value, fb: 'ok' }]);
-                    enterCmd(location, value);
-                }
+			case 'Enter':
+			enterCmd(location, value, (c:any) => setHistory([...history, { cmd: value, fb: c }]));
                 setInputValue('');
-                break
         }
     };
 
@@ -80,22 +53,22 @@ export const CLIScreen: React.FunctionComponent<ICLIScreenProps> = ({ quit }) =>
         <QuitScreenButton onClick={quit}>
             Leave computer
         </QuitScreenButton>
-        <code>
-            {history.map((h: any, i: number) => <div key={i}>
+		<code>
+            {history.map((h: any, i: number) => <PrintLine key={i}>
                 {
                     h.fb === 'unknown'
                         ? <UnknownCMD>{`Unknown command "${h.cmd}"`}</UnknownCMD>
-                        : <><Prompt>{location}$</Prompt> {h.cmd}</>
+					: <>
+					<Prompt>{location}$</Prompt> {h.cmd}
+					{h.output}
+				</>
                 }
-            </div>
+			</PrintLine>
             )}
             <Prompt>
                 {location}${' '}
             </Prompt>
             <input
-                style={{
-                    color: !!inputValue.length && !allowedCMD.includes(inputValue) ? 'red' : 'inherit'
-                }}
                 ref={cliInput}
                 value={inputValue}
                 onChange={handleValue}

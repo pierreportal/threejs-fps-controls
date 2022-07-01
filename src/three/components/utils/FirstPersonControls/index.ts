@@ -156,10 +156,10 @@ export class FirstPersonCamera {
 
     updateVelocity_() {
         const { s, w, a, d, S, W, A, D } = this.input_.keys_;
-        const UP = w || W;
-        const DOWN = s || S;
-        const RIGHT = d || D;
-        const LEFT = a || A;
+        const UP = w;
+        const DOWN = s;
+        const RIGHT = d;
+        const LEFT = a;
 
         const direction = new Vector3();
         const frontVector = new Vector3(0, 0, (DOWN ? 1 : 0) - (UP ? 1 : 0));

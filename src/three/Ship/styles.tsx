@@ -2,10 +2,14 @@ import styled, { keyframes } from 'styled-components'
 
 
 export const Instructions = styled.div`
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
     position:absolute;
+    width: 100vw;
     z-index:9;
     bottom:20px;
-    right: 20px;
+    padding: 0 20px;
     color: cyan
 `
 

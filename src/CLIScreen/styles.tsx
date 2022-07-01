@@ -48,3 +48,7 @@ export const QuitScreenButton = styled.button`
         opacity: 0.9;
     }
 `;
+
+export const PrintLine = styled.p`
+	padding: 1px 0;
+`;

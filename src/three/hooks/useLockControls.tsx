@@ -29,7 +29,7 @@ export const useLockControls = () => {
 
     React.useEffect(() => {
         document.addEventListener('keydown', (event: any) => keyCheck(event));
-    }, [music])
+    }, [])
 
 
     const toggleControl = () => {

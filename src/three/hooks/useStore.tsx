@@ -19,6 +19,10 @@ export interface INotification {
 }
 
 export const useStore = create((set: any) => ({
+	isOnMobile: false,
+	setIsOnMobile: (mode: boolean) => {
+		return set((state: any) => state.isOnMobile = mode);
+	},
 
     music: null,
     setMusic: (music: any) => {
