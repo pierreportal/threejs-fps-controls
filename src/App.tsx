@@ -1,13 +1,14 @@
 import React from 'react';
 import { NotificationManager } from './NotificationManager';
 import { Routing } from './Routing';
+import { PhoneVersion} from './_PhoneVersion';
 import { useStore } from './three/hooks/useStore';
 
 export const DEBUG = false;
 
 function App() {
 
-	const { enableControls, setMusic, setIsOnMobile } = useStore();
+	const { enableControls, setMusic, isOnMobile, setIsOnMobile } = useStore();
 
 	const music = React.useRef<any>(null);
     
@@ -18,18 +19,19 @@ function App() {
 	},[setIsOnMobile]);
 
 	React.useEffect(() => {
+		if(!isOnMobile)
 		music.current = new Audio('/assets/sounds/room.mp3');
 		music.current.loop = true;
 		music.current.volume = 0.2;
 		setMusic(music.current);
-	}, [setMusic]);
+	}, [setMusic, isOnMobile]);
+	
+	if(isOnMobile) return <PhoneVersion/>	
 
 	if (DEBUG && !enableControls) {
 		const lid = document.getElementById('eye-lid-up');
 		const lidB = document.getElementById('eye-lid-down');
-
 		const nap = document.getElementById('nap');
-
 		document.getElementsByTagName('canvas')[0]?.classList.add('cleared')
 
 		if (lid && nap && lidB) {
